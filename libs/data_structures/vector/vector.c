@@ -4,7 +4,7 @@
 #include "vector.h"
 #include <malloc.h>
 
-void memoryAllocateError(const int* data) {
+void memoryAllocateError(const int *data) {
     if (data == NULL) {
         fprintf(stderr, "bad alloc ");
         exit(1);
@@ -26,8 +26,7 @@ void reserve(vector *v, size_t newCapacity) {
     if (newCapacity) {
         v->data = (int *) realloc(v->data, newCapacity * sizeof(int));
         memoryAllocateError(v->data);
-    }
-    else {
+    } else {
         free(v->data);
         v->data = NULL;
     }
@@ -92,19 +91,19 @@ void indexOutOfRange(vector *v, size_t index) {
     }
 }
 
-int* atVector(vector *v, size_t index) {
+int *atVector(vector *v, size_t index) {
     indexOutOfRange(v, index);
 
     return v->data + index;
 }
 
-int* back(vector *v) {
+int *back(vector *v) {
     elementAccessError(v);
 
     return v->data + v->size - 1;
 }
 
-int* front(vector *v) {
+int *front(vector *v) {
     elementAccessError(v);
 
     return v->data;
