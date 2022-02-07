@@ -34,20 +34,28 @@ void shrinkToFit(vector *v);
 // освобождает память, выделенную вектору v
 void deleteVector(vector *v);
 
+// возвращает true, если вектор пуст, иначе - false
 bool isEmpty(vector *v);
 
+// возвращает true, если вектор полон, иначе - false
 bool isFull(vector *v);
 
+// возвращает i-ый элемент вектора v
 int getVectorValue(vector *v, size_t i);
 
+// добавляет в конце вектора v значение x
 void pushBack(vector *v, int x);
 
+// удаляет последний элемент v
 void popBack(vector *v);
 
+// возвращает указатель на index-ый элемент вектора v
 int *atVector(vector *v, size_t index);
 
+// возвращает указатель на последний элемент вектора v
 int *back(vector *v);
 
+// возвращает указатель на первый элемент вектора v
 int *front(vector *v);
 
 #endif //INC_5B_VECTOR_H

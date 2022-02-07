@@ -26,13 +26,12 @@ void reserve(vector *v, size_t newCapacity) {
     if (newCapacity) {
         v->data = (int *) realloc(v->data, newCapacity * sizeof(int));
         memoryAllocateError(v->data);
-    } else {
-        free(v->data);
-        v->data = NULL;
-    }
-    v->capacity = newCapacity;
-    if (v->size > newCapacity)
-        v->size = newCapacity;
+
+        v->capacity = newCapacity;
+        if (v->size > newCapacity)
+            v->size = newCapacity;
+    } else
+        deleteVector(v);
 }
 
 void clear(vector *v) {

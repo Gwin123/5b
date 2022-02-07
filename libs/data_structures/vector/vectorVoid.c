@@ -12,10 +12,11 @@ void memoryAllocateError(const void *data) {
     }
 }
 
+
 vectorVoid createVectorV(size_t n, size_t baseTypeSize) {
     void *data;
     if (n) {
-        data = malloc(n * sizeof(baseTypeSize));
+        data = malloc(n * baseTypeSize);
         memoryAllocateError(data);
     } else
         data = NULL;
@@ -25,16 +26,14 @@ vectorVoid createVectorV(size_t n, size_t baseTypeSize) {
 
 void reserveV(vectorVoid *v, size_t newCapacity) {
     if (newCapacity) {
-        v->data = realloc(v->data, newCapacity * sizeof(v->baseTypeSize));
+        v->data = realloc(v->data, v->baseTypeSize * newCapacity);
         memoryAllocateError(v->data);
-    } else {
-        free(v->data);
-        v->data = NULL;
-    }
 
-    v->capacity = newCapacity;
-    if (v->size > newCapacity)
-        v->size = newCapacity;
+        v->capacity = newCapacity;
+        if (newCapacity < v->size)
+            v->size = newCapacity;
+    } else
+        deleteVectorV(v);
 }
 
 void shrinkToFitV(vectorVoid *v) {
@@ -78,7 +77,7 @@ void setVectorValueV(vectorVoid *v, size_t index, void *source) {
     indexOutOfRange(v, index);
 
     char *destination = (char *) v->data + index * v->baseTypeSize;
-    memcpy(source, destination, v->baseTypeSize);
+    memcpy(destination, source, v->baseTypeSize);
 }
 
 void elementAccessError(vectorVoid *v) {
