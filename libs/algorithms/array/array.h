@@ -36,4 +36,6 @@ void deleteByPosSaveOrder_(int *a, size_t *n, const size_t pos);
 
 int getMax(int *a, int n);
 
+int getMin(int *a, int n);
+
 # endif

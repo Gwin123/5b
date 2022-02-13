@@ -127,3 +127,16 @@ int getMax(int *a, int n) {
 
     return max;
 }
+
+int getMin(int *a, int n) {
+    if (n < 1) {
+        fprintf(stderr, "empty array");
+        exit(1);
+    }
+    int min = a[0];
+    for (int i = 1; i < n; i++)
+        if (a[i] < min)
+            min = a[i];
+
+    return min;
+}

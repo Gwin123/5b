@@ -222,9 +222,153 @@ void test_sortRowsByMinElement() {
     test_sortRowsByMinElement_oneCol();
 }
 
+//================== task 3 ======================
+
+void sortColsByMinElement(matrix m) {
+    insertionSortColsMatrixByColCriteria(m, getMin);
+}
+
+void test_sortColsByMinElement_SquareMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    3, 2, 3
+            },
+            3, 3);
+
+    sortColsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    3, 2, 3
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortColsByMinElement_rectangleHorizontalMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 2, 4, 3, 3,
+                    2, 5, 1, 8, 2, 7,
+                    6, 1, 4, 4, 8, 3
+            },
+            3, 6);
+
+    sortColsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    5, 2, 3, 3, 3, 4,
+                    5, 1, 2, 2, 7, 8,
+                    1, 4, 6, 8, 3, 4
+            },
+            3, 6);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortColsByMinElement_rectangleVerticalMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    4, 8, 1,
+                    3, 2, 3,
+                    6, 2, 1
+            },
+            4, 3);
+
+    sortColsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 7,
+                    8, 1, 4,
+                    2, 3, 3,
+                    2, 1, 6
+            },
+            4, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortColsByMinElement_oneElem() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7
+            },
+            1, 1);
+
+    sortColsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7
+            },
+            1, 1);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortColsByMinElement_oneRow() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 2, 4, 6
+            },
+            1, 4);
+
+    sortColsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    2, 4, 6, 7
+            },
+            1, 4);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortColsByMinElement_oneCol() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7,
+                    2,
+                    4,
+                    6
+            },
+            4, 1);
+
+    sortColsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7,
+                    2,
+                    4,
+                    6
+            },
+            4, 1);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortColsByMinElement() {
+    test_sortColsByMinElement_SquareMatrix();
+    test_sortColsByMinElement_rectangleHorizontalMatrix();
+    test_sortColsByMinElement_rectangleVerticalMatrix();
+    test_sortColsByMinElement_oneElem();
+    test_sortColsByMinElement_oneRow();
+    test_sortColsByMinElement_oneCol();
+}
+
 void test_tasks() {
     test_sortRowsByMinElement();
     test_swapRowsWithMaxAndMinValues();
+    test_sortColsByMinElement();
 }
 
 int main() {
