@@ -1,661 +1,634 @@
-#include "libs/data_structures/vector/vectorVoid.h"
+#include "libs/data_structures/matrix/matrix.h"
+#include "libs/algorithms/algorithms/algorithm.h"
+#include <assert.h>
+#include <stdio.h>
 
-#define EPS 10E-7
-////int main() {
-////    size_t n;
-////    scanf("%zd", &n);
-////
-////    vectorVoid v = createVectorV(0, sizeof(int));
-////    for (int i = 0; i < n; i++) {
-////        int x;
-////        scanf("%d", &x);
-////
-////        pushBackV(&v, &x);
-////    }
-////
-////    for (int i = 0; i < n; i++) {
-////        int x;
-////        getVectorValueV(&v, i, &x);
-////
-////        printf("%d ", x);
-////    }
-////
-////    return 0;
-////}
+//void assertMatrix(matrix expected, matrix got,
+//                  char const * fileName, char const *funcName, int line);
 //
-//int main() {
-////    size_t n;
-////    scanf("%zd", &n);
+//#define ASSERT_MATRIX(a, b) assertMatrix(a, b, __FILE__, __FUNCTION__, __LINE__)
 //
-//    double c[5] = {1, 2, 3, 4, 5};
+//void assertMatrix(matrix expected, matrix got,
+//                  char const *fileName, char const *funcName, int line) {
+//    if (twoMatricesEqual(expected, got)) {
+//        fprintf(stderr, "File %s\n", fileName);
+//        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
 //
-//    vectorVoid v = createVectorV(0, sizeof(double));
-//    for (int i = 0; i < 5; i++) {
-//        double x = c[i];
-//        printf("%lf", x);
-//        pushBackV(&v, &x);
+//        fprintf(stderr,"Expected: \n");
+//        outputMatrix(expected);
+//
+//        fprintf(stderr,"Got: \n");
+//        outputMatrix(got);
+//    } else {
+//        fprintf(stderr, "%s - OK\n", funcName);
 //    }
-//
-//    for (int i = 0; i < 5; i++) {
-//        double x;
-//        getVectorValueV(&v, i, &x);
-//
-//        printf("%lf ", x);
-//    }
-//
-//    return 0;
 //}
 
-double fabs(const double x) {
-    return x > 0 ? x : -x;
+void test_getMemMatrix_rowsAndColsNotZero() {
+    matrix m = getMemMatrix(5, 5);
+
+    assert(m.nRows == 5);
+    assert(m.nCols == 5);
+    assert(m.values != NULL);
+
+    size_t colsCount = m.nCols;
+    for (size_t i = 0; i < colsCount; i++)
+        assert(m.values[i] != NULL);
 }
 
-int isEqual(const double x, const double y) {
-    return fabs(x - y) < EPS;
+//void test_getMemMatrix_INT_MAX() {
+//    matrix m = getMemMatrix(INT_MAX, 1);
+//
+//    assert(m.nRows == 5);
+//    assert(m.nCols == 5);
+//    assert(m.values != NULL);
+//
+//    size_t colsCount = m.nCols;
+//    for (size_t i = 0; i < colsCount; i++)
+//        assert(m.values[i] != NULL);
+//}
+
+void test_getMemMatrix_onRand() {
+    int randRow = randit(1, 100);
+    int randCol = randit(1, 100);
+
+    matrix m = getMemMatrix(randRow, randCol);
+
+    assert(m.nRows == randRow);
+    assert(m.nCols == randCol);
+    assert(m.values != NULL);
+
+    size_t rowsCount = m.nRows;
+    for (size_t i = 0; i < rowsCount; i++)
+        assert(m.values[i] != NULL);
 }
 
-void test_createVector_ZeroCapacityInt() {
-    vectorVoid v = createVectorV(0, sizeof(int));
-
-    assert(v.size == 0);
-    assert(v.capacity == 0);
-    assert(v.data == NULL);
-
-    deleteVectorV(&v);
+void test_getMemMatrix() {
+    test_getMemMatrix_rowsAndColsNotZero();
+    test_getMemMatrix_onRand();
 }
 
-void test_createVector_NotZeroCapacityInt() {
-    vectorVoid v = createVectorV(5, sizeof(int));
+void test_twoMatricesEqual_equalMatrices() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9,
+            },
+            3, 3);
 
-    assert(v.size == 0);
-    assert(v.capacity == 5);
-    assert(v.data != NULL);
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9,
+            },
+            3, 3);
 
-    deleteVectorV(&v);
+    assert(twoMatricesEqual(m1, m2));
 }
 
-void test_createVectorInt() {
-    test_createVector_ZeroCapacityInt();
-    test_createVector_NotZeroCapacityInt();
+void test_twoMatricesEqual_NotEqualElements() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 10,
+            },
+            3, 3);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9,
+            },
+            3, 3);
+
+    assert(!twoMatricesEqual(m1, m2));
 }
 
-void test_reserve_FromZeroToZeroInt() {
-    vectorVoid v = createVectorV(0, sizeof(int));
+void test_twoMatricesEqual_NotEqualDimensions() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3, 2,
+                    4, 5, 6, 3,
+                    7, 8, 10, 4
+            },
+            3, 4);
 
-    reserveV(&v, 0);
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9,
+            },
+            3, 3);
 
-    assert(v.capacity == 0);
-    assert(v.size == 0);
-    assert(v.data == NULL);
-
-    deleteVectorV(&v);
+    assert(!twoMatricesEqual(m1, m2));
 }
 
-void test_reserve_FromZeroToNotZeroInt() {
-    vectorVoid v = createVectorV(0, sizeof(int));
-
-    reserveV(&v, 5);
-
-    assert(v.capacity == 5);
-    assert(v.size == 0);
-    assert(v.data != NULL);
-
-    deleteVectorV(&v);
+void test_twoMatricesEqual() {
+    test_twoMatricesEqual_equalMatrices();
+    test_twoMatricesEqual_NotEqualElements();
+    test_twoMatricesEqual_NotEqualDimensions();
 }
 
-void test_reserve_FromNotZeroToZeroInt() {
-    vectorVoid v = createVectorV(5, sizeof(int));
+void test_swapRows_theSameRow() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 10
+            },
+            3, 3);
 
-    reserveV(&v, 0);
+    swapRows(m, 1, 1);
 
-    assert(v.capacity == 0);
-    assert(v.size == 0);
-    assert(v.data == NULL);
+    matrix result = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 10
+            },
+            3, 3);
 
-    deleteVectorV(&v);
+    assert(twoMatricesEqual(m, result));
 }
 
-void test_reserve_toLesserInt() {
-    vectorVoid v = createVectorV(5, sizeof(int));
+void test_swapRows_firstAndLastRectangle() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3, 2,
+                    4, 5, 6, 3,
+                    7, 8, 10, 4
+            },
+            3, 4);
 
-    int a[] = {1, 2, 3, 4};
+    swapRows(m, 0, m.nRows - 1);
 
-    for (int i = 0; i < 4; i++)
-        pushBackV(&v, a + i);
+    matrix result = createMatrixFromArray(
+            (int[]) {
+                    7, 8, 10, 4,
+                    4, 5, 6, 3,
+                    1, 2, 3, 2
+            },
+            3, 4);
 
-    reserveV(&v, 2);
-
-    assert(v.capacity == 2);
-    assert(v.size == 2);
-    assert(v.data != NULL);
-
-    for (int i = 0; i < v.size; i++) {
-        int elem;
-        getVectorValueV(&v, i, &elem);
-        assert(elem == a[i]);
-    }
-    deleteVectorV(&v);
+    assert(twoMatricesEqual(m, result));
 }
 
-void test_reserve_toMoreInt() {
-    vectorVoid v = createVectorV(5, sizeof(int));
+void test_swapRows_firstAndLastSquare() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 10
+            },
+            3, 3);
 
-    int a[] = {1, 2, 3, 4, 5};
+    swapRows(m, 0, m.nRows - 1);
 
-    for (int i = 0; i < 5; i++)
-        pushBackV(&v, a + i);
+    matrix result = createMatrixFromArray(
+            (int[]) {
+                    7, 8, 10,
+                    4, 5, 6,
+                    1, 2, 3
+            },
+            3, 3);
 
-    reserveV(&v, 10);
-
-    assert(v.capacity == 10);
-    assert(v.size == 5);
-    assert(v.data != NULL);
-
-    for (int i = 0; i < v.size; i++) {
-        int elem;
-        getVectorValueV(&v, i, &elem);
-        assert(elem == a[i]);
-    }
-
-    deleteVectorV(&v);
+    assert(twoMatricesEqual(m, result));
 }
 
-void test_reserveInt() {
-    test_reserve_FromZeroToZeroInt();
-    test_reserve_FromNotZeroToZeroInt();
-    test_reserve_toLesserInt();
-    test_reserve_FromZeroToNotZeroInt();
-    test_reserve_toMoreInt();
+void test_swapRows() {
+    test_swapRows_firstAndLastRectangle();
+    test_swapRows_firstAndLastSquare();
+    test_swapRows_theSameRow();
 }
 
-void test_shrinkToFit_toZeroInt() {
-    vectorVoid v = createVectorV(5, sizeof(int));
+void test_swapColumns_theSameColumn() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 10
+            },
+            3, 3);
 
-    shrinkToFitV(&v);
+    swapColumns(m, 1, 1);
 
-    assert(v.capacity == 0);
-    assert(v.size == 0);
+    matrix result = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 10
+            },
+            3, 3);
 
-    deleteVectorV(&v);
+    assert(twoMatricesEqual(m, result));
 }
 
-void test_shrinkToFit_toNotZeroInt() {
-    vectorVoid v = createVectorV(5, sizeof(int));
+void test_swapColumns_firstAndLastSquare() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 10
+            },
+            3, 3);
 
-    for (int i = 0; i < 3; i++)
-        pushBackV(&v, &i);
+    swapColumns(m, 0, m.nCols - 1);
 
-    shrinkToFitV(&v);
+    matrix result = createMatrixFromArray(
+            (int[]) {
+                    3, 2, 1,
+                    6, 5, 4,
+                    10, 8, 7
+            },
+            3, 3);
 
-    assert(v.capacity == 3);
-    assert(v.size == 3);
-
-    deleteVectorV(&v);
+    assert(twoMatricesEqual(m, result));
 }
 
-void test_shrinkToFitInt() {
-    test_shrinkToFit_toZeroInt();
-    test_shrinkToFit_toNotZeroInt();
+void test_swapColumns_firstAndLastRectangle() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3, 11,
+                    4, 5, 6, 12,
+                    7, 8, 10, 13
+            },
+            3, 4);
+
+    swapColumns(m, 0, m.nCols - 1);
+
+    matrix result = createMatrixFromArray(
+            (int[]) {
+                    11, 2, 3, 1,
+                    12, 5, 6, 4,
+                    13, 8, 10, 7
+            },
+            3, 4);
+
+    assert(twoMatricesEqual(m, result));
 }
 
-void test_pushBack_emptyVectorInt() {
-    vectorVoid v = createVectorV(0, sizeof(int));
-
-    int elem = 5;
-    pushBackV(&v, &elem);
-
-    assert(v.size == 1);
-    assert(v.capacity == 1);
-
-    getVectorValueV(&v, 0, &elem);
-
-    assert(elem == 5);
-
-    deleteVectorV(&v);
+void test_swapColumns() {
+    test_swapColumns_theSameColumn();
+    test_swapColumns_firstAndLastSquare();
+    test_swapColumns_firstAndLastRectangle();
 }
 
-void test_pushBack_fullVectorInt() {
-    vectorVoid v = createVectorV(5, sizeof(int));
+void test_isSquareMatrix_squareMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 10
+            },
+            3, 3);
 
-    int a[] = {0, 1, 2, 3, 4};
-    for (int i = 0; i < v.capacity; i++) {
-        pushBackV(&v, a + i);
-    }
-
-    assert(v.size == 5);
-
-    int elem = 5;
-    pushBackV(&v, &elem);
-
-    getVectorValueV(&v, v.size - 1, &elem);
-    assert(elem == 5);
-    assert(v.size == 6);
-    assert(v.capacity == 10);
-
-    deleteVectorV(&v);
+    assert(isSquareMatrix(m));
 }
 
-void test_pushBackInt() {
-    test_pushBack_emptyVectorInt();
-    test_pushBack_fullVectorInt();
+void test_isSquareMatrix_rectangleMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3, 11,
+                    4, 5, 6, 12,
+                    7, 8, 10, 13
+            },
+            3, 4);
+
+    assert(!isSquareMatrix(m));
 }
 
-void test_popBack_notEmptyVectorInt() {
-    vectorVoid v = createVectorV(0, sizeof(int));
-
-    int elem = 10;
-    pushBackV(&v, &elem);
-
-    assert(v.size == 1);
-    popBackV(&v);
-    assert(v.size == 0);
-    assert(v.capacity == 1);
-
-    deleteVectorV(&v);
+void test_isSquareMatrix() {
+    test_isSquareMatrix_squareMatrix();
+    test_isSquareMatrix_rectangleMatrix();
 }
 
-void test_popBackInt() {
-    test_popBack_notEmptyVectorInt();
+void test_isEMatrix_EMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1
+            },
+            3, 3);
+
+    assert(isEMatrix(m));
 }
 
-void test_getVectorValue_lastElementInt() {
-    vectorVoid v = createVectorV(5, sizeof(int));
-    int a[] = {0, 1, 2, 3, 4};
+void test_isEMatrix_EMatrix_notEMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 0
+            },
+            3, 3);
 
-    for (int i = 0; i < v.capacity; i++)
-        pushBackV(&v, a + i);
-
-    int elem;
-    getVectorValueV(&v, v.size - 1, &elem);
-    assert(elem == 4);
-
-    deleteVectorV(&v);
+    assert(!isEMatrix(m));
 }
 
-void test_getVectorValueInt() {
-    test_getVectorValue_lastElementInt();
+void test_isEMatrix() {
+    test_isEMatrix_EMatrix();
+    test_isEMatrix_EMatrix_notEMatrix();
 }
 
-void test_isEmpty_emptyVectorInt() {
-    vectorVoid v = createVectorV(0, sizeof(int));
+void test_isSymmetricMatrix_EMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1
+            },
+            3, 3);
 
-    assert(isEmptyV(&v));
-
-    deleteVectorV(&v);
+    assert(isSymmetricMatrix(m));
 }
 
-void test_isEmpty_notEmptyVectorInt() {
-    vectorVoid v = createVectorV(0, sizeof(int));
+void test_isSymmetricMatrix_rectangleMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, 0
+            },
+            3, 4);
 
-    int elem = 5;
-    pushBackV(&v, &elem);
-
-    assert(!isEmptyV(&v));
-
-    deleteVectorV(&v);
+    assert(!isSymmetricMatrix(m));
 }
 
-void test_isFull_emptyVectorInt() {
-    vectorVoid v = createVectorV(0, sizeof(int));
+void test_isSymmetricMatrix_notSymmetricSquare() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, 0, 6,
+                    0, 2, 3,
+                    6, 4, 1
+            },
+            3, 3);
 
-    assert(isFullV(&v));
-
-    deleteVectorV(&v);
+    assert(!isSymmetricMatrix(m));
 }
 
-void test_isFull_notEmptyNotFullVectorInt() {
-    vectorVoid v = createVectorV(5, sizeof(int));
+void test_isSymmetricMatrix_symmetricSquare() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    3, 0, 6,
+                    0, 2, 4,
+                    6, 4, 1
+            },
+            3, 3);
 
-    int elem = 5;
-    pushBackV(&v, &elem);
-
-    assert(!isFullV(&v));
-
-    deleteVectorV(&v);
+    assert(isSymmetricMatrix(m));
 }
 
-void test_isFull_FullVectorInt() {
-    vectorVoid v = createVectorV(3, sizeof(int));
-
-    int elem = 5;
-    pushBackV(&v, &elem);
-    pushBackV(&v, &elem);
-    pushBackV(&v, &elem);
-
-    assert(isFullV(&v));
-
-    deleteVectorV(&v);
+void test_isSymmetricMatrix() {
+    test_isSymmetricMatrix_rectangleMatrix();
+    test_isSymmetricMatrix_EMatrix();
+    test_isSymmetricMatrix_notSymmetricSquare();
+    test_isSymmetricMatrix_symmetricSquare();
 }
 
-void test_isEmptyInt() {
-    test_isEmpty_emptyVectorInt();
-    test_isEmpty_notEmptyVectorInt();
+void test_transposeSquareMatrix_EMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1
+            },
+            3, 3);
+
+    transposeSquareMatrix(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
 }
 
-void test_isFullInt() {
-    test_isFull_emptyVectorInt();
-    test_isFull_notEmptyNotFullVectorInt();
-    test_isFull_FullVectorInt();
+void test_transposeSquareMatrix_SquareMartrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9
+            },
+            3, 3);
+
+    transposeSquareMatrix(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 4, 7,
+                    2, 5, 8,
+                    3, 6, 9
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
 }
 
-void testInt() {
-    test_createVectorInt();
-    test_pushBackInt();
-    test_popBackInt();
-    test_getVectorValueInt();
-    test_isEmptyInt();
-    test_isFullInt();
-    test_reserveInt();
-    test_shrinkToFitInt();
+void test_transposeSquareMatrix_transposeTransposeMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9
+            },
+            3, 3);
+
+    transposeSquareMatrix(m1);
+    transposeSquareMatrix(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
 }
 
-//////////////////////////////////////////////////////////
-void test_createVector_ZeroCapacityDouble() {
-    vectorVoid v = createVectorV(0, sizeof(double));
-
-    assert(v.size == 0);
-    assert(v.capacity == 0);
-    assert(v.data == NULL);
-
-    deleteVectorV(&v);
+void test_transposeSquareMatrix() {
+    test_transposeSquareMatrix_EMatrix();
+    test_transposeSquareMatrix_SquareMartrix();
+    test_transposeSquareMatrix_transposeTransposeMatrix();
 }
 
-void test_createVector_NotZeroCapacityDouble() {
-    vectorVoid v = createVectorV(5, sizeof(double));
+void test_mulMatrices_Square() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9,
+            },
+            3, 3);
 
-    assert(v.size == 0);
-    assert(v.capacity == 5);
-    assert(v.data != NULL);
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9,
+            },
+            3, 3);
 
-    deleteVectorV(&v);
+    matrix m3 = mulMatrices(m1, m2);
+
+    matrix m4 = createMatrixFromArray(
+            (int[]) {
+                    30, 36, 42,
+                    66, 81, 96,
+                    102, 126, 150
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m3, m4));
 }
 
-void test_createVectorDouble() {
-    test_createVector_ZeroCapacityDouble();
-    test_createVector_NotZeroCapacityDouble();
+void test_mulMatrices_toEMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3,
+                    4, 5, 6,
+                    7, 8, 9,
+            },
+            3, 3);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1,
+            },
+            3, 3);
+
+    matrix m3 = mulMatrices(m1, m2);
+
+    assert(twoMatricesEqual(m3, m1));
 }
 
-void test_reserve_FromZeroToZeroDouble() {
-    vectorVoid v = createVectorV(0, sizeof(double));
+void test_mulMatrices_rectangle() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2, 1,
+                    -3, 0,
+                    4, -1,
+            },
+            3, 2);
 
-    reserveV(&v, 0);
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    5, -1, 6,
+                    -3, 0, 7
+            },
+            2, 3);
 
-    assert(v.capacity == 0);
-    assert(v.size == 0);
-    assert(v.data == NULL);
+    matrix m3 = mulMatrices(m1, m2);
 
-    deleteVectorV(&v);
+    matrix m4 = createMatrixFromArray(
+            (int[]) {
+                    7, -2, 19,
+                    -15, 3, -18,
+                    23, -4, 17
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m3, m4));
 }
 
-void test_reserve_FromZeroToNotZeroDouble() {
-    vectorVoid v = createVectorV(0, sizeof(double));
-
-    reserveV(&v, 5);
-
-    assert(v.capacity == 5);
-    assert(v.size == 0);
-    assert(v.data != NULL);
-
-    deleteVectorV(&v);
+void test_mulMatrices() {
+    test_mulMatrices_Square();
+    test_mulMatrices_toEMatrix();
+    test_mulMatrices_rectangle();
 }
 
-void test_reserve_FromNotZeroToZeroDouble() {
-    vectorVoid v = createVectorV(5, sizeof(double));
+void test_getMinValuePos_rectangle() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2, 1,
+                    -3, 0,
+                    4, -1,
+            },
+            3, 2);
 
-    reserveV(&v, 0);
-
-    assert(v.capacity == 0);
-    assert(v.size == 0);
-    assert(v.data == NULL);
-
-    deleteVectorV(&v);
+    position minPos = getMinValuePos(m1);
+    assert(minPos.rowIndex == 1 && minPos.colIndex == 0);
 }
 
-void test_reserve_toLesserDouble() {
-    vectorVoid v = createVectorV(5, sizeof(double));
+void test_getMinValuePos_squareLastELemIsMin() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2, 1, 2,
+                    -3, 0, 3,
+                    4, -1, -10
+            },
+            3, 3);
 
-    double a[] = {4.5, 5.5, 6.5, 4.5, 1.5};
-
-    for (int i = 0; i < 5; i++)
-        pushBackV(&v, a + i);
-
-    reserveV(&v, 2);
-
-    assert(v.capacity == 2);
-    assert(v.size == 2);
-    assert(v.data != NULL);
-
-    deleteVectorV(&v);
+    position minPos = getMinValuePos(m1);
+    assert(minPos.rowIndex == 2 && minPos.rowIndex == 2);
 }
 
-void test_reserve_toMoreDouble() {
-    vectorVoid v = createVectorV(5, sizeof(double));
-
-    double a[] = {1.4, 2.4, 3.5, 4.1, 5.5};
-
-    for (int i = 0; i < 5; i++)
-        pushBackV(&v, a + i);
-
-    reserveV(&v, 10);
-
-    assert(v.capacity == 10);
-    assert(v.size == 5);
-    assert(v.data != NULL);
-
-    for (int i = 0; i < v.size; i++) {
-        double elem;
-        getVectorValueV(&v, i, &elem);
-        assert(isEqual(elem, a[i]));
-    }
-
-    deleteVectorV(&v);
+void test_getMinValuePos() {
+    test_getMinValuePos_rectangle();
+    test_getMinValuePos_squareLastELemIsMin();
 }
 
-void test_reserveDouble() {
-    test_reserve_FromZeroToZeroDouble();
-    test_reserve_FromNotZeroToZeroDouble();
-    test_reserve_toLesserDouble();
-    test_reserve_FromZeroToNotZeroDouble();
-    test_reserve_toMoreDouble();
+void test_getMaxValuePos_rectangle() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2, 1,
+                    -3, 0,
+                    4, -1,
+            },
+            3, 2);
+
+    position maxPos = getMaxValuePos(m1);
+    assert(maxPos.rowIndex == 2 && maxPos.colIndex == 0);
 }
 
-void test_shrinkToFit_toZeroDouble() {
-    vectorVoid v = createVectorV(5, sizeof(double));
+void test_getMaxValuePos_squareLastELemIsMax() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    -2, -11, -2,
+                    -3, -4, -3,
+                    -4, -1, 0
+            },
+            3, 3);
 
-    shrinkToFitV(&v);
-
-    assert(v.capacity == 0);
-    assert(v.size == 0);
-
-    deleteVectorV(&v);
+    position maxPos = getMaxValuePos(m1);
+    assert(maxPos.rowIndex == 2 && maxPos.rowIndex == 2);
 }
 
-void test_shrinkToFit_toNotZeroDouble() {
-    vectorVoid v = createVectorV(5, sizeof(double));
-
-    for (int i = 0; i < 3; i++) {
-        double elem = (double) i;
-        pushBackV(&v, &elem);
-    }
-
-    shrinkToFitV(&v);
-
-    assert(v.capacity == 3);
-    assert(v.size == 3);
-
-    double elem;
-    getVectorValueV(&v, v.size - 1, &elem);
-    assert(isEqual(elem, 2));
-
-    deleteVectorV(&v);
+void test_getMaxValuePos() {
+    test_getMaxValuePos_squareLastELemIsMax();
+    test_getMaxValuePos_rectangle();
 }
 
-void test_shrinkToFitDouble() {
-    test_shrinkToFit_toZeroDouble();
-    test_shrinkToFit_toNotZeroDouble();
-}
-
-void test_pushBack_emptyVectorDouble() {
-    vectorVoid v = createVectorV(0, sizeof(double));
-
-    double elem = 5;
-    pushBackV(&v, &elem);
-
-    assert(v.size == 1);
-    assert(v.capacity == 1);
-
-    getVectorValueV(&v, 0, &elem);
-
-    assert(isEqual(elem, 5.0));
-
-    deleteVectorV(&v);
-}
-
-void test_pushBack_fullVectorDouble() {
-    vectorVoid v = createVectorV(5, sizeof(double));
-    for (int i = 0; i < v.capacity; i++) {
-        double elem = i * 1.;
-        pushBackV(&v, &elem);
-    }
-
-    assert(v.size == 5);
-
-    double elem = 5;
-    pushBackV(&v, &elem);
-
-    getVectorValueV(&v, v.size - 1, &elem);
-    assert(isEqual(elem, 5));
-    assert(v.size == 6);
-    assert(v.capacity == 10);
-
-    deleteVectorV(&v);
-}
-
-void test_pushBackDouble() {
-    test_pushBack_emptyVectorDouble();
-    test_pushBack_fullVectorDouble();
-}
-
-void test_popBack_notEmptyVectorDouble() {
-    vectorVoid v = createVectorV(0, sizeof(double));
-
-    double elem = 10;
-    pushBackV(&v, &elem);
-
-    assert(v.size == 1);
-    popBackV(&v);
-    assert(v.size == 0);
-    assert(v.capacity == 1);
-
-    deleteVectorV(&v);
-}
-
-void test_popBackDouble() {
-    test_popBack_notEmptyVectorDouble();
-}
-
-void test_getVectorValue_lastElementDouble() {
-    vectorVoid v = createVectorV(5, sizeof(double));
-
-    double a[] = {1.2, 3.4, 5.5, 6.5};
-
-    for (int i = 0; i < 4; i++) {
-        pushBackV(&v, a + i);
-    }
-
-    double elem;
-    getVectorValueV(&v, v.size - 1, &elem);
-
-    assert(isEqual(elem, 6.5));
-
-    deleteVectorV(&v);
-}
-
-void test_getVectorValueDouble() {
-    test_getVectorValue_lastElementDouble();
-}
-
-void test_isEmpty_emptyVectorDouble() {
-    vectorVoid v = createVectorV(0, sizeof(double));
-
-    assert(isEmptyV(&v));
-
-    deleteVectorV(&v);
-}
-
-void test_isEmpty_notEmptyVectorDouble() {
-    vectorVoid v = createVectorV(0, sizeof(double));
-
-    double elem = 5;
-    pushBackV(&v, &elem);
-
-    assert(!isEmptyV(&v));
-
-    deleteVectorV(&v);
-}
-
-void test_isFull_emptyVectorDouble() {
-    vectorVoid v = createVectorV(0, sizeof(double));
-
-    assert(isFullV(&v));
-
-    deleteVectorV(&v);
-}
-
-void test_isFull_notEmptyNotFullVectorDouble() {
-    vectorVoid v = createVectorV(5, sizeof(double));
-
-    double elem = 5;
-    pushBackV(&v, &elem);
-
-    assert(!isFullV(&v));
-
-    deleteVectorV(&v);
-}
-
-void test_isFull_FullVectorDouble() {
-    vectorVoid v = createVectorV(3, sizeof(double));
-
-    double elem = 5.1;
-    pushBackV(&v, &elem);
-    pushBackV(&v, &elem);
-    pushBackV(&v, &elem);
-
-    assert(isFullV(&v));
-
-    deleteVectorV(&v);
-}
-
-void test_isEmptyDouble() {
-    test_isEmpty_emptyVectorDouble();
-    test_isEmpty_notEmptyVectorDouble();
-}
-
-void test_isFullDouble() {
-    test_isFull_emptyVectorDouble();
-    test_isFull_notEmptyNotFullVectorDouble();
-    test_isFull_FullVectorDouble();
-}
-
-void testDouble() {
-    test_createVectorDouble();
-    test_pushBackDouble();
-    test_popBackDouble();
-    test_getVectorValueDouble();
-    test_isEmptyDouble();
-    test_shrinkToFitDouble();
-    test_isFullDouble();
-    test_reserveDouble();
-}
-
-void testVoid() {
-    testInt();
-    testDouble();
-
+void testMatrix() {
+    test_isSymmetricMatrix();
+    test_getMemMatrix();
+    test_twoMatricesEqual();
+    test_swapRows();
+    test_swapColumns();
+    test_isSquareMatrix();
+    test_isEMatrix();
+    test_transposeSquareMatrix();
+    test_mulMatrices();
+    test_getMinValuePos();
+    test_getMaxValuePos();
 }
 
 int main() {
-    testVoid();
+    testMatrix();
+
+    return 0;
 }
-
-
