@@ -1,5 +1,8 @@
 #include "libs/data_structures/matrix/matrix.h"
 #include <assert.h>
+#include "libs/algorithms/array/array.h"
+
+//================== task 1 ======================
 
 void swapRowsWithMaxAndMinValues(matrix m) {
     position minPos = getMinValuePos(m);
@@ -76,7 +79,151 @@ void test_swapRowsWithMaxAndMinValues() {
     test_swapRowsWithMaxAndMinValues_oneElem();
 }
 
+//================== task 2 ======================
+
+void sortRowsByMinElement(matrix m) {
+    insertionSortRowsMatrixByRowCriteria(m, getMax);
+}
+
+void test_sortRowsByMinElement_SquareMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    3, 2, 3
+            },
+            3, 3);
+
+    sortRowsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    3, 2, 3,
+                    7, 1, 2,
+                    1, 8, 1
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortRowsByMinElement_rectangleHorizontalMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2, 3,
+                    1, 8, 1, 6,
+                    3, 2, 3, 8
+            },
+            3, 4);
+
+    sortRowsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2, 3,
+                    1, 8, 1, 6,
+                    3, 2, 3, 8
+            },
+            3, 4);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortRowsByMinElement_rectangleVerticalMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    3, 2, 3,
+                    6, 2, 1
+            },
+            4, 3);
+
+    sortRowsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    3, 2, 3,
+                    6, 2, 1,
+                    7, 1, 2,
+                    1, 8, 1
+            },
+            4, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortRowsByMinElement_oneElem() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7
+            },
+            1, 1);
+
+    sortRowsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7
+            },
+            1, 1);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortRowsByMinElement_oneRow() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 2, 4, 6
+            },
+            1, 4);
+
+    sortRowsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7, 2, 4, 6
+            },
+            1, 4);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortRowsByMinElement_oneCol() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7,
+                    2,
+                    4,
+                    6
+            },
+            4, 1);
+
+    sortRowsByMinElement(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    2,
+                    4,
+                    6,
+                    7
+            },
+            4, 1);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_sortRowsByMinElement() {
+    test_sortRowsByMinElement_rectangleVerticalMatrix();
+    test_sortRowsByMinElement_rectangleHorizontalMatrix();
+    test_sortRowsByMinElement_SquareMatrix();
+    test_sortRowsByMinElement_oneElem();
+    test_sortRowsByMinElement_oneRow();
+    test_sortRowsByMinElement_oneCol();
+}
+
 void test_tasks() {
+    test_sortRowsByMinElement();
     test_swapRowsWithMaxAndMinValues();
 }
 

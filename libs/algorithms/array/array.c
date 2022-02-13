@@ -114,3 +114,16 @@ void deleteByPosSaveOrder_(int *a, size_t *n, const size_t pos) {
         a[i] = a[i + 1];
     *n -= 1;
 }
+
+int getMax(int *a, int n) {
+    if (n < 1) {
+        fprintf(stderr, "empty array");
+        exit(1);
+    }
+    int max = a[0];
+    for (int i = 1; i < n; i++)
+        if (a[i] > max)
+            max = a[i];
+
+    return max;
+}
