@@ -135,8 +135,8 @@ bool isEMatrix(matrix m) {
 
 bool isSymmetricMatrix(matrix m) {
     bool isSymmetric = isSquareMatrix(m) ? true : false;
-    for (int i = 1; i < m.nRows && isSymmetric; i++)
-        for (int j = 1; j < i && isSymmetric; j++)
+    for (int i = 0; i < m.nRows && isSymmetric; i++)
+        for (int j = 0; j < i && isSymmetric; j++)
             if (m.values[i][j] != m.values[j][i])
                 isSymmetric = false;
 

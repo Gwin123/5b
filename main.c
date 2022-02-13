@@ -365,10 +365,138 @@ void test_sortColsByMinElement() {
     test_sortColsByMinElement_oneCol();
 }
 
+//================== task 4 ======================
+
+void getSquareOfMatrixIfSymmetric(matrix *m) {
+    if (isSymmetricMatrix(*m))
+        *m = mulMatrices(*m, *m);
+}
+
+void test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix_v1() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    2, 1, 3
+            },
+            3, 3);
+
+    getSquareOfMatrixIfSymmetric(&m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    54, 17, 21,
+                    17, 66, 13,
+                    21, 13, 14
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix_v2() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    0, 11, 7,
+                    11, 0, 4,
+                    7, 4, 22
+            },
+            3, 3);
+
+    getSquareOfMatrixIfSymmetric(&m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    170, 28, 198,
+                    28, 137, 165,
+                    198, 165, 549
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix_v3() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1
+            },
+            3, 3);
+
+    getSquareOfMatrixIfSymmetric(&m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 0,
+                    0, 1, 0,
+                    0, 0, 1
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_getSquareOfMatrixIfSymmetric_oneElem() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7
+            },
+            1, 1);
+
+    getSquareOfMatrixIfSymmetric(&m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    49
+            },
+            1, 1);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix() {
+    test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix_v1();
+    test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix_v2();
+    test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix_v3();
+}
+
+void test_getSquareOfMatrixIfSymmetric_NotSymmetricSquareMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    3, 1, 3
+            },
+            3, 3);
+
+    getSquareOfMatrixIfSymmetric(&m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    3, 1, 3
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_getSquareOfMatrixIfSymmetric() {
+    test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix();
+    test_getSquareOfMatrixIfSymmetric_NotSymmetricSquareMatrix();
+    test_getSquareOfMatrixIfSymmetric_oneElem();
+}
+
+//================== task 5 ======================
+
 void test_tasks() {
     test_sortRowsByMinElement();
     test_swapRowsWithMaxAndMinValues();
     test_sortColsByMinElement();
+    test_getSquareOfMatrixIfSymmetric();
 }
 
 int main() {
