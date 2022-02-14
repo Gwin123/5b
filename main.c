@@ -1,6 +1,7 @@
 #include "libs/data_structures/matrix/matrix.h"
 #include <assert.h>
 #include "libs/algorithms/array/array.h"
+#include "libs/data_structures/matrix/matrix_test.h"
 
 //================== task 1 ======================
 
@@ -625,14 +626,118 @@ void test_isMutuallyInverseMatrices() {
     test_isMutuallyInverseMatrices_Matrix4x4ProduceIsNotEMatrix();
 }
 
+//================== task 5 ======================
+
+void transposeIfMatrixHasNotEqualSumOfRows(matrix m) {
+    long long rowsSums[m.nRows];
+    for (int i = 0; i < m.nRows; i++)
+        rowsSums[i] = getSum(m.values[i], m.nCols);
+
+    if (isUnique(rowsSums, m.nRows))
+        transposeSquareMatrix(m);
+}
+
+void test_transposeIfMatrixHasNotEqualSumOfRows_oneElem() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    2
+            },
+            1, 1);
+
+    transposeIfMatrixHasNotEqualSumOfRows(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    2
+            },
+            1, 1);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_transposeIfMatrixHasNotEqualSumOfRows_hasEqualSum() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    3, 1, 3
+            },
+            3, 3);
+
+    transposeIfMatrixHasNotEqualSumOfRows(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2,
+                    1, 8, 1,
+                    3, 1, 3
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_transposeIfMatrixHasNotEqualSumOfRows_hasNotEqualSum() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 1,
+                    1, 8, 1,
+                    3, 1, 3
+            },
+            3, 3);
+
+    transposeIfMatrixHasNotEqualSumOfRows(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 3,
+                    1, 8, 1,
+                    1, 1, 3
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_transposeIfMatrixHasNotEqualSumOfRows_lastsSumIsEqual() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 1, 3,
+                    1, 8, 1,
+                    7, 1, 2
+            },
+            3, 3);
+
+    transposeIfMatrixHasNotEqualSumOfRows(m1);
+
+    matrix m2 = createMatrixFromArray(
+            (int[]) {
+                    3, 1, 3,
+                    1, 8, 1,
+                    7, 1, 2
+            },
+            3, 3);
+
+    assert(twoMatricesEqual(m1, m2));
+}
+
+void test_transposeIfMatrixHasNotEqualSumOfRows() {
+    test_transposeIfMatrixHasNotEqualSumOfRows_oneElem();
+    test_transposeIfMatrixHasNotEqualSumOfRows_hasEqualSum();
+    test_transposeIfMatrixHasNotEqualSumOfRows_hasNotEqualSum();
+    test_transposeIfMatrixHasNotEqualSumOfRows_lastsSumIsEqual();
+}
+
 void test_tasks() {
     test_sortRowsByMinElement();
     test_swapRowsWithMaxAndMinValues();
     test_sortColsByMinElement();
     test_getSquareOfMatrixIfSymmetric();
+    test_transposeIfMatrixHasNotEqualSumOfRows();
     test_isMutuallyInverseMatrices();
 }
 
 int main() {
+    testMatrix();
     test_tasks();
 }

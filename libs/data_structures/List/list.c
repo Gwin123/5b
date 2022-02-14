@@ -5,10 +5,6 @@
 #include "list.h"
 #include <malloc.h>
 
-void test() {
-    printf("Hello, World");
-}
-
 void push(Node **head, int data) {
     Node *tmp = (Node *) malloc(sizeof(Node));
     tmp->value = data;

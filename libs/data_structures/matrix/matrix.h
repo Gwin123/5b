@@ -6,6 +6,7 @@
 #define LAST_MATRIX_H
 
 #include <stdbool.h>
+#include <stdio.h>
 
 typedef struct matrix {
     int **values;       // элементы матрицы
@@ -59,5 +60,7 @@ position getMinValuePos(matrix m);
 position getMaxValuePos(matrix m);
 
 matrix createMatrixFromArray(const int *a, int nRows, int nCols);
+
+matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
 
 #endif //LAST_MATRIX_H

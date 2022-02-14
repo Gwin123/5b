@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include "array.h"
+#include <stdlib.h>
 
 void inputArray_(int *const a, const size_t n) {
     for (size_t i = 0; i < n; i++)
@@ -139,4 +140,24 @@ int getMin(int *a, int n) {
             min = a[i];
 
     return min;
+}
+
+bool isUnique(long long *a, int n) {
+    qsort(a, n, sizeof(long long), compare_ints);
+    bool isUnique = true;
+
+    int i = 0;
+    while (i < n - 1 && isUnique) {
+        isUnique = a[i] != a[i + 1];
+        i++;
+    }
+
+    return isUnique;
+}
+
+long long getSum(int *a, int n) {
+    long long sum = 0;
+    for (size_t i = 0; i < n; i++)
+        sum += a[i];
+    return sum;
 }

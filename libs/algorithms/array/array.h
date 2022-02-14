@@ -38,4 +38,8 @@ int getMax(int *a, int n);
 
 int getMin(int *a, int n);
 
+bool isUnique(long long *a, int n);
+
+long long getSum(int *a, int n);
+
 # endif
