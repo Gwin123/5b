@@ -820,53 +820,6 @@ void test_transposeIfMatrixHasNotEqualSumOfRows() {
 }
 
 //================== task 7 ======================
-//         0 1 2
-/*     0   3 2 5
- *     1   1 3 6
- *     2   3 2 1            0 - 3 + 1
- *     3   1 2 6
- *     4   7 3 1    0 - 5 + 1     0 - m.nCols
- *
- *
- *     4 0
- *     3 0
- *     2 0
- *     1 0
- *     0 0
- *     0 1
- *     0 2
- *
- *
- *         0 - 2 + 1
- *         0 - (m.nRows - 1) + 1
- *
- *         0 - n.nRows
-
-            -(0 - m.nRows + 1)
-
-
-            (1, 0) (2, 1)  1 - 0 + 1 = 2  // 2 - 1 + 1 = 2
-
-            (2, 0) = 3
-
-            (0, 1) (1, 2) (2, 3)  -1 + 1 = 0  //  1 - 2 + 1 = 0 // 2 - 3 + 1 = 0
-            (0, 2) (1, 3)         -2 + 1 = -1 // 1 - 3 + 1 = -1
-
-            (0, 3) 3 + 1 = 4
-
-            -2 -1 0 1 2 3
-
-            + 2
-
-
-            2 0      0 - 2 + 1 = -1
-
-            -2 -1 0 1 2 3 4
-
-            -1 0 1 2 3 4
-            6
-
- */
 
 #include <limits.h>
 
@@ -874,16 +827,13 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
     int size = m.nRows + m.nCols - 1;
     int elemPseudoDiagonal[size];
 
-    for (int i = 1; i < m.nRows; i++)                              // для работы с отрицательными числами матрицы
-        elemPseudoDiagonal[0 - i + m.nRows - 1] = m.values[i][0];
-
-    for (int j = 1; j < m.nCols; j++)
-        elemPseudoDiagonal[j - 0 + m.nRows - 1] = m.values[0][j];
+    for (int i = 0; i < size; i++)
+        elemPseudoDiagonal[i] = INT_MIN;
 
     elemPseudoDiagonal[m.nRows - 1] = 0; // лежал мусор
 
-    for (int i = 1; i < m.nRows; i++)
-        for (int j = 1; j < m.nCols; j++)
+    for (int i = 0; i < m.nRows; i++)
+        for (int j = 0; j < m.nCols; j++)
             if (j != i) {
                 int k = j - i + m.nRows - 1;
                 elemPseudoDiagonal[k] = max(elemPseudoDiagonal[k], m.values[i][j]);
@@ -1047,6 +997,11 @@ void test_tasks() {
     test_isMutuallyInverseMatrices();
     test_findSumOfMaxesOfPseudoDiagonal();
 }
+
+//================== task 8 ======================
+
+
+
 
 int main() {
     testMatrix();
