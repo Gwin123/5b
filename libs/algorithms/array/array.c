@@ -6,6 +6,7 @@
 #include <assert.h>
 #include "array.h"
 #include <stdlib.h>
+#include <math.h>
 
 void inputArray_(int *const a, const size_t n) {
     for (size_t i = 0; i < n; i++)
@@ -173,4 +174,12 @@ long long maxArrayLL(long long *a, size_t n) {
             max = a[i];
 
     return max;
+}
+
+float getDistance(int *a, int n) {
+    float distance = 0;
+    for (int i = 0; i < n; i++)
+        distance += (float) (a[i] * a[i]);
+
+    return sqrtf(distance);
 }

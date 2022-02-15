@@ -44,4 +44,6 @@ bool isUnique(long long *a, int n);
 
 long long getSum(int *a, int n);
 
+float getDistance(int *a, int n);
+
 # endif
