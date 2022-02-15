@@ -15,7 +15,7 @@
 //
 //void assertMatrix(matrix expected, matrix got,
 //                  char const *fileName, char const *funcName, int line) {
-//    if (twoMatricesEqual(expected, got)) {
+//    if (isTwoMatricesEqual(expected, got)) {
 //        fprintf(stderr, "File %s\n", fileName);
 //        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
 //
@@ -94,7 +94,7 @@ void test_twoMatricesEqual_equalMatrices() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -117,7 +117,7 @@ void test_twoMatricesEqual_NotEqualElements() {
             },
             3, 3);
 
-    assert(!twoMatricesEqual(m1, m2));
+    assert(!isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -140,7 +140,7 @@ void test_twoMatricesEqual_NotEqualDimensions() {
             },
             3, 3);
 
-    assert(!twoMatricesEqual(m1, m2));
+    assert(!isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -171,7 +171,7 @@ void test_swapRows_theSameRow() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m, result));
+    assert(isTwoMatricesEqual(m, result));
 
     freeMemMatrix(m);
     freeMemMatrix(result);
@@ -196,7 +196,7 @@ void test_swapRows_firstAndLastRectangle() {
             },
             3, 4);
 
-    assert(twoMatricesEqual(m, result));
+    assert(isTwoMatricesEqual(m, result));
 
     freeMemMatrix(m);
     freeMemMatrix(result);
@@ -221,7 +221,7 @@ void test_swapRows_firstAndLastSquare() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m, result));
+    assert(isTwoMatricesEqual(m, result));
 
     freeMemMatrix(m);
     freeMemMatrix(result);
@@ -252,7 +252,7 @@ void test_swapColumns_theSameColumn() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m, result));
+    assert(isTwoMatricesEqual(m, result));
 
     freeMemMatrix(m);
     freeMemMatrix(result);
@@ -277,7 +277,7 @@ void test_swapColumns_firstAndLastSquare() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m, result));
+    assert(isTwoMatricesEqual(m, result));
 
     freeMemMatrix(m);
     freeMemMatrix(result);
@@ -302,7 +302,7 @@ void test_swapColumns_firstAndLastRectangle() {
             },
             3, 4);
 
-    assert(twoMatricesEqual(m, result));
+    assert(isTwoMatricesEqual(m, result));
 
     freeMemMatrix(m);
     freeMemMatrix(result);
@@ -462,7 +462,7 @@ void test_transposeSquareMatrix_EMatrix() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -487,7 +487,7 @@ void test_transposeSquareMatrix_SquareMartrix() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -513,7 +513,7 @@ void test_transposeSquareMatrix_transposeTransposeMatrix() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -552,7 +552,7 @@ void test_mulMatrices_Square() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m3, m4));
+    assert(isTwoMatricesEqual(m3, m4));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -579,7 +579,7 @@ void test_mulMatrices_toEMatrix() {
 
     matrix m3 = mulMatrices(m1, m2);
 
-    assert(twoMatricesEqual(m3, m1));
+    assert(isTwoMatricesEqual(m3, m1));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -612,7 +612,7 @@ void test_mulMatrices_rectangle() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m3, m4));
+    assert(isTwoMatricesEqual(m3, m4));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -737,9 +737,9 @@ void test_createArrayOfMatrixFromArray_squareArray() {
             },
             3, 3);
 
-    twoMatricesEqual(ma[0], m1);
-    twoMatricesEqual(ma[1], m2);
-    twoMatricesEqual(ma[2], m3);
+    isTwoMatricesEqual(ma[0], m1);
+    isTwoMatricesEqual(ma[1], m2);
+    isTwoMatricesEqual(ma[2], m3);
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -782,9 +782,9 @@ void test_createArrayOfMatrixFromArray_rectangleArray() {
             },
             2, 3);
 
-    twoMatricesEqual(ma[0], m1);
-    twoMatricesEqual(ma[1], m2);
-    twoMatricesEqual(ma[2], m3);
+    isTwoMatricesEqual(ma[0], m1);
+    isTwoMatricesEqual(ma[1], m2);
+    isTwoMatricesEqual(ma[2], m3);
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);

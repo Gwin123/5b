@@ -1,23 +1,18 @@
 //
-// Created by DNS on 10.02.2022.
+// Created by DNS on 15.02.2022.
 //
 
-#ifndef LAST_MATRIX_H
-#define LAST_MATRIX_H
+#ifndef LAST_PAIN_H
+#define LAST_PAIN_H
 
+#include "../fraction/fraction.h"
 #include <stdbool.h>
-#include <stdio.h>
 
 typedef struct matrix {
-    int **values;       // элементы матрицы
+    fraction **values;       // элементы матрицы
     int nRows;          // количество рядов
     int nCols;          // количество столбцов
 } matrix;
-
-typedef struct position {
-    int rowIndex;       // индекс ряда
-    int colIndex;       // индекс столбца
-} position;
 
 matrix getMemMatrix(int nRows, int nCols);
 
@@ -55,12 +50,9 @@ bool isSymmetricMatrix(matrix m);
 
 void transposeSquareMatrix(matrix m);
 
-position getMinValuePos(matrix m);
-
-position getMaxValuePos(matrix m);
-
 matrix createMatrixFromArray(const int *a, int nRows, int nCols);
 
 matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
 
-#endif //LAST_MATRIX_H
+
+#endif //LAST_PAIN_H

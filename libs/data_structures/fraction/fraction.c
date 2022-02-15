@@ -104,3 +104,4 @@ fraction sumFractions(fraction *f, size_t size) {
 
     return sum;
 }
+

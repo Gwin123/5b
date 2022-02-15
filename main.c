@@ -32,7 +32,7 @@ void test_swapRowsWithMaxAndMinValues_maxAndMinInSameRow() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -57,7 +57,7 @@ void test_swapRowsWithMaxAndMinValues_maxAndMinInDifferentRows() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -78,7 +78,7 @@ void test_swapRowsWithMaxAndMinValues_oneElem() {
             },
             1, 1);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -115,7 +115,7 @@ void test_sortRowsByMinElement_SquareMatrix() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -140,7 +140,7 @@ void test_sortRowsByMinElement_rectangleHorizontalMatrix() {
             },
             3, 4);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -167,7 +167,7 @@ void test_sortRowsByMinElement_rectangleVerticalMatrix() {
             },
             4, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -188,7 +188,7 @@ void test_sortRowsByMinElement_oneElem() {
             },
             1, 1);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -209,7 +209,7 @@ void test_sortRowsByMinElement_oneRow() {
             },
             1, 4);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -236,7 +236,7 @@ void test_sortRowsByMinElement_oneCol() {
             },
             4, 1);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -276,7 +276,7 @@ void test_sortColsByMinElement_SquareMatrix() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -301,7 +301,7 @@ void test_sortColsByMinElement_rectangleHorizontalMatrix() {
             },
             3, 6);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -328,7 +328,7 @@ void test_sortColsByMinElement_rectangleVerticalMatrix() {
             },
             4, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -349,7 +349,7 @@ void test_sortColsByMinElement_oneElem() {
             },
             1, 1);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -370,7 +370,7 @@ void test_sortColsByMinElement_oneRow() {
             },
             1, 4);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -397,7 +397,7 @@ void test_sortColsByMinElement_oneCol() {
             },
             4, 1);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -438,7 +438,7 @@ void test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix_v1() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -463,7 +463,7 @@ void test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix_v2() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -488,7 +488,7 @@ void test_getSquareOfMatrixIfSymmetric_SymmetricSquareMatrix_v3() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -509,7 +509,7 @@ void test_getSquareOfMatrixIfSymmetric_oneElem() {
             },
             1, 1);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -540,7 +540,7 @@ void test_getSquareOfMatrixIfSymmetric_NotSymmetricSquareMatrix() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -731,7 +731,7 @@ void test_transposeIfMatrixHasNotEqualSumOfRows_oneElem() {
             },
             1, 1);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -756,7 +756,7 @@ void test_transposeIfMatrixHasNotEqualSumOfRows_hasEqualSum() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -781,7 +781,7 @@ void test_transposeIfMatrixHasNotEqualSumOfRows_hasNotEqualSum() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -806,7 +806,7 @@ void test_transposeIfMatrixHasNotEqualSumOfRows_lastsSumIsEqual() {
             },
             3, 3);
 
-    assert(twoMatricesEqual(m1, m2));
+    assert(isTwoMatricesEqual(m1, m2));
 
     freeMemMatrix(m1);
     freeMemMatrix(m2);
@@ -988,6 +988,137 @@ void test_findSumOfMaxesOfPseudoDiagonal() {
 
 }
 
+//================== task 8 ======================
+
+int getMinInArea(matrix m) {
+    position minPos = getMaxValuePos(m);
+    int minElem = m.values[minPos.rowIndex][minPos.colIndex];
+
+    int jRight = minPos.colIndex;
+    int jLeft = minPos.colIndex;
+    for (int i = minPos.rowIndex - 1; i >= 0; i--) {
+        jLeft = jLeft > 0 ? jLeft - 1 : jLeft;
+        jRight = jRight < m.nCols ? jRight + 1 : jRight;
+
+        minElem = min(getMin(&m.values[i][jLeft], jRight - jLeft), minElem);
+    }
+
+    return minElem;
+}
+
+void test_getMinInArea_rectangleMatrixMinInBot() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    10, 7, 5, 6,
+                    3, 11, 8, 9,
+                    4, 1, 12, 2
+            },
+            3, 4);
+
+    assert(getMinInArea(m) == 5);
+
+    freeMemMatrix(m);
+}
+
+void test_getMinInArea_rectangleMatrixMinInMiddle() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    6, 8, 9, 2,
+                    7, 12, 3, 4,
+                    10, 11, 5, 1
+            },
+            3, 4);
+
+    assert(getMinInArea(m) == 6);
+
+    freeMemMatrix(m);
+}
+
+void test_getMinInArea_rectangleVerticalMatrix_1() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    6, 8, 9, 4,
+                    7, 12, 3, 6,
+                    10, 11, 5, 15,
+                    11, 14, 13, 1,
+                    16, 17, 18, 19
+            },
+            5, 4);
+
+    assert(getMinInArea(m) == 1);
+
+    freeMemMatrix(m);
+}
+
+void test_getMinInArea_rectangleVerticalMatrix_2() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    6, 8, 9, 4,
+                    7, 12, 3, 6,
+                    10, 14, 5, 11,
+                    11, 1, 13, 15,
+                    16, 17, 18, 20
+            },
+            5, 4);
+
+    assert(getMinInArea(m) == 3);
+
+    freeMemMatrix(m);
+}
+
+void test_getMinInArea_oneElem() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    6
+            },
+            1, 1);
+
+    assert(getMinInArea(m) == 6);
+
+    freeMemMatrix(m);
+}
+
+void test_getMinInArea_oneRow() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    6,
+                    2,
+                    8,
+                    1,
+                    7
+
+            },
+            5, 1);
+
+    assert(getMinInArea(m) == 2);
+
+    freeMemMatrix(m);
+}
+
+void test_getMinInArea_oneCol() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    6, 2, 8, 1, 7
+
+            },
+            1, 5);
+
+    assert(getMinInArea(m) == 8);
+
+    freeMemMatrix(m);
+}
+
+
+void test_getMinInArea() {
+    test_getMinInArea_rectangleMatrixMinInBot();
+    test_getMinInArea_rectangleMatrixMinInMiddle();
+    test_getMinInArea_rectangleVerticalMatrix_1();
+    test_getMinInArea_rectangleVerticalMatrix_2();
+    test_getMinInArea_oneElem();
+    test_getMinInArea_oneRow();
+    test_getMinInArea_oneCol();
+}
+
 void test_tasks() {
     test_sortRowsByMinElement();
     test_swapRowsWithMaxAndMinValues();
@@ -996,14 +1127,12 @@ void test_tasks() {
     test_transposeIfMatrixHasNotEqualSumOfRows();
     test_isMutuallyInverseMatrices();
     test_findSumOfMaxesOfPseudoDiagonal();
+    test_getMinInArea();
 }
-
-//================== task 8 ======================
-
-
-
 
 int main() {
     testMatrix();
     test_tasks();
+
+    return 0;
 }

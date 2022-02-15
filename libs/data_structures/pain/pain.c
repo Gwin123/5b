@@ -1,29 +1,28 @@
 //
-// Created by DNS on 10.02.2022.
+// Created by DNS on 15.02.2022.
 //
 
-#include "matrix.h"
+#include "pain.h"
 #include <malloc.h>
 #include <stdio.h>
 #include <assert.h>
 #include <memory.h>
 #include "../../algorithms/algorithms/algorithm.h"
-#include "../../algorithms/array/array.h"
 
 matrix getMemMatrix(int nRows, int nCols) {
-    int **values = (int **) malloc(sizeof(int *) * nRows);
+    fraction **values = (fraction **) malloc(sizeof(int *) * nRows);
     for (int i = 0; i < nRows; i++)
-        values[i] = (int *) malloc(sizeof(int) * nCols);
+        values[i] = (fraction *) malloc(sizeof(fraction) * nCols);
 
     return (matrix) {values, nRows, nCols};
 }
 
-matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols) {
-    matrix *ms = (matrix *) malloc(sizeof(matrix) * nMatrices);
-    for (int i = 0; i < nMatrices; i++)
-        ms[i] = getMemMatrix(nRows, nCols);
-    return ms;
-}
+//matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols) {
+//    matrix *ms = (matrix *) malloc(sizeof(matrix) * nMatrices);
+//    for (int i = 0; i < nMatrices; i++)
+//        ms[i] = getMemMatrix(nRows, nCols);
+//    return ms;
+//}
 
 void freeMemMatrix(matrix m) {
     for (size_t i = 0; i < m.nRows; i++)
@@ -31,32 +30,37 @@ void freeMemMatrix(matrix m) {
     free(m.values);
 }
 
-void freeMemMatrices(matrix *ms, int nMatrices) {
-    for (size_t i = 0; i < nMatrices; i++)
-        freeMemMatrix(ms[i]);
-    free(ms);
-}
+//void freeMemMatrices(matrix *ms, int nMatrices) {
+//    for (size_t i = 0; i < nMatrices; i++)
+//        freeMemMatrix(ms[i]);
+//    free(ms);
+//}
 
 void inputMatrix(matrix m) {
     for (int i = 0; i < m.nRows; i++)
-        inputArray_(m.values[i], m.nCols);
+        for (int j = 0; j < m.nCols; j++) {
+            fraction f;
+            inputFraction(&f);
+            m.values[i][j] = f;
+        }
 }
 
-void inputMatrices(matrix *ms, int nMatrices) {
-    for (int i = 0; i < nMatrices; i++)
-        inputMatrix(ms[i]);
-}
+//void inputMatrices(matrix *ms, int nMatrices) {
+//    for (int i = 0; i < nMatrices; i++)
+//        inputMatrix(ms[i]);
+//}
 
 void outputMatrix(matrix m) {
     for (int i = 0; i < m.nRows; i++)
-        outputArray_(m.values[i], m.nCols);
+        for (int j = 0; j < m.nCols; j++)
+            outputFraction(m.values[i][j]);
     printf("\n");
 }
 
-void outputMatrices(matrix *ms, int nMatrices) {
-    for (int i = 0; i < nMatrices; i++)
-        outputMatrix(ms[i]);
-}
+//void outputMatrices(matrix *ms, int nMatrices) {
+//    for (int i = 0; i < nMatrices; i++)
+//        outputMatrix(ms[i]);
+//}
 
 void indexOutOfRange(int size, int index) {
     if (index >= size) {
@@ -69,7 +73,7 @@ void swapRows(matrix m, int i1, int i2) {
     indexOutOfRange(m.nRows, i1);
     indexOutOfRange(m.nRows, i2);
 
-    swap(&m.values[i1], &m.values[i2], sizeof(int *));
+    swap(&m.values[i1], &m.values[i2], sizeof(fraction *));
 }
 
 void swapColumns(matrix m, int j1, int j2) {
@@ -77,10 +81,10 @@ void swapColumns(matrix m, int j1, int j2) {
     indexOutOfRange(m.nCols, j2);
 
     for (int i = 0; i < m.nRows; i++)
-        swap(&m.values[i][j1], &m.values[i][j2], sizeof(int));
+        swap(&m.values[i][j1], &m.values[i][j2], sizeof(fraction));
 }
 
-void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int)) {
+void insertionSortRowsMatrixByRowCriter(matrix m, int (*criteria)(fraction *, int)) {
     int rowsCriteria[m.nRows];
     for (int i = 0; i < m.nRows; i++)
         rowsCriteria[i] = criteria(m.values[i], m.nCols);
@@ -92,10 +96,10 @@ void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int))
         }
 }
 
-void insertionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int)) {
+void insertionSortColsMatrixByColCriter(matrix m, int (*criteria)(fraction *, int)) {
     int colsCriteria[m.nCols];
     for (int j = 0; j < m.nCols; j++) {
-        int colsElem[m.nRows];
+        fraction colsElem[m.nRows];
         for (int i = 0; i < m.nRows; i++)
             colsElem[i] = m.values[i][j];
 
@@ -223,23 +227,3 @@ matrix mulMatrices(matrix m1, matrix m2) {
         }
     return (matrix) product;
 }
-
-//1 2 3     7 8
-//4 5 6     5 1
-//6 3
-
-
-//1 2 3 4 5
-//6 7 8 9 10
-//1 5 6 7 3
-//5 4 1 2 5
-//8 9 6 1 4
-
-
-//0 1 2 3 4
-//0 ! - - - -
-//1 - ! - - -
-//2 - - ! - -
-//3 - - - ! -
-//4 - - - - !
-
