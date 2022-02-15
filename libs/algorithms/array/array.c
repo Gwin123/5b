@@ -161,3 +161,16 @@ long long getSum(int *a, int n) {
         sum += a[i];
     return sum;
 }
+
+long long maxArrayLL(long long *a, size_t n) {
+    if (n < 1) {
+        fprintf(stderr, "empty array");
+        exit(1);
+    }
+    long long max = a[0];
+    for (int i = 1; i < n; i++)
+        if (a[i] > max)
+            max = a[i];
+
+    return max;
+}

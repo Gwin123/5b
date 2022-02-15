@@ -14,7 +14,7 @@ add_library(
         vector/vectorVoid.c
 
         matrix/matrix.c
-        matrix/matrix_test.c matrix/matrix_test.h)
+        matrix/matrix_test.c matrix/matrix_test.h fraction/fraction.h fraction/fraction.c)
 
 target_link_libraries(data_structures algorithms)
 

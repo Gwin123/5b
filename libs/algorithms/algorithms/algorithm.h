@@ -10,6 +10,8 @@
 // обменивает a и b размера size
 void swap(void *a, void *b, size_t size);
 
+int max(int x, int y);
+
 int randit(int a, int b);
 
 #endif //LAST_ALGORITHM_H

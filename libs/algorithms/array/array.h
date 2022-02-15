@@ -34,6 +34,8 @@ void deleteByPosUnsaveOrder_(int *a, size_t *n, size_t pos);
 
 void deleteByPosSaveOrder_(int *a, size_t *n, const size_t pos);
 
+long long maxArrayLL(long long *a, size_t size);
+
 int getMax(int *a, int n);
 
 int getMin(int *a, int n);
