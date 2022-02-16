@@ -555,7 +555,12 @@ void test_getSquareOfMatrixIfSymmetric() {
 //================== task 6 ======================
 
 bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
-    return isEMatrix(mulMatrices(m1, m2));
+    matrix product = mulMatrices(m1, m2);
+    bool isInverse = isEMatrix(product);
+
+    freeMemMatrix(product);
+
+    return isInverse;
 }
 
 void test_isMutuallyInverseMatrices_Matrix2x2ProduceIsEMatrix() {
@@ -1252,6 +1257,208 @@ void test_sortByDistances() {
     test_sortByDistances_oneElem();
 }
 
+// =============== task 10 ================
+
+int countEqClassesByRowsSum(matrix m) {
+    long long rowSums[m.nRows];
+    for (int i = 0; i < m.nRows; i++)
+        rowSums[i] = getSum(m.values[i], m.nCols);
+
+    return countNUnique(rowSums, m.nRows);
+}
+
+void test_countEqClassesByRowsSum_verticalRectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1,
+                    2, 7,
+                    5, 4,
+                    4, 3,
+                    1, 6,
+                    8, 0
+            },
+            6, 2);
+
+    assert(countEqClassesByRowsSum(m1) == 3);
+
+    freeMemMatrix(m1);
+}
+
+void test_countEqClassesByRowsSum_horizontalRectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2, 7,
+                    5, 4, 4, 4,
+                    1, 6, 8, 2
+            },
+            3, 4);
+
+    assert(countEqClassesByRowsSum(m1) == 1);
+
+    freeMemMatrix(m1);
+}
+
+void test_countEqClassesByRowsSum_onRow() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2, 7,
+            },
+            1, 4);
+
+    assert(countEqClassesByRowsSum(m1) == 1);
+
+    freeMemMatrix(m1);
+}
+
+void test_countEqClassesByRowsSum_onCol() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7, 1, 2, 7,
+            },
+            1, 4);
+
+    assert(countEqClassesByRowsSum(m1) == 1);
+
+    freeMemMatrix(m1);
+}
+
+void test_countEqClassesByRowsSum_onElem() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    7
+            },
+            1, 1);
+
+    assert(countEqClassesByRowsSum(m1) == 1);
+
+    freeMemMatrix(m1);
+}
+
+void test_countEqClassesByRowsSum() {
+    test_countEqClassesByRowsSum_verticalRectangleMatrix();
+    test_countEqClassesByRowsSum_horizontalRectangleMatrix();
+    test_countEqClassesByRowsSum_onRow();
+    test_countEqClassesByRowsSum_onCol();
+    test_countEqClassesByRowsSum_onElem();
+
+}
+
+// =============== task 11 ================
+
+int getNSpecialElement(matrix m) {
+    int countSpecial = 0;
+    for (int j = 0; j < m.nCols; j++) {
+        int specialElement = m.values[0][j];
+        int sumOfCol = 0;
+        for (int i = 1; i < m.nRows; i++) {
+            if (m.values[i][j] > specialElement) {
+                sumOfCol += specialElement;
+                specialElement = m.values[i][j];
+            } else
+                sumOfCol += m.values[i][j];
+        }
+        if (specialElement > sumOfCol)
+            countSpecial++;
+    }
+    return countSpecial;
+}
+
+
+void test_getNSpecialElement_rectangleMatrix() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 5, 4,
+                    2, 3, 6, 7,
+                    12, 2, 1, 2
+            },
+            3, 4);
+
+    assert(getNSpecialElement(m1) == 2);
+
+    freeMemMatrix(m1);
+}
+
+void test_getNSpecialElement_rectangleMatrixHasNotSpecial() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 5, 4,
+                    2, 3, 6, 4,
+                    1, 2, 1, 2
+            },
+            3, 4);
+
+    assert(getNSpecialElement(m1) == 0);
+
+    freeMemMatrix(m1);
+}
+
+void test_getNSpecialElement_rectangleVerticalMatrixHasNotSpecial() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    3, 5, 5,
+                    4, 2, 3,
+                    6, 4, 1,
+                    2, 1, 2
+            },
+            4, 3);
+
+    assert(getNSpecialElement(m1) == 0);
+
+    freeMemMatrix(m1);
+}
+
+void test_getNSpecialElement_allElementsEqual() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    5, 5, 5,
+                    5, 5, 5,
+                    5, 5, 5,
+                    5, 5, 5
+            },
+            4, 3);
+
+    assert(getNSpecialElement(m1) == 0);
+
+    freeMemMatrix(m1);
+}
+
+void test_getNSpecialElement_oneRow() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1,
+                    2,
+                    3,
+                    7
+            },
+            4, 1);
+
+    assert(getNSpecialElement(m1) == 1);
+
+    freeMemMatrix(m1);
+}
+
+void test_getNSpecialElement_oneCol() {
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 2, 3, 7
+            },
+            1, 4);
+
+    assert(getNSpecialElement(m1) == 4);
+
+    freeMemMatrix(m1);
+}
+
+
+void test_getNSpecialElement() {
+    test_getNSpecialElement_rectangleMatrix();
+    test_getNSpecialElement_rectangleMatrixHasNotSpecial();
+    test_getNSpecialElement_rectangleVerticalMatrixHasNotSpecial();
+    test_getNSpecialElement_allElementsEqual();
+    test_getNSpecialElement_oneRow();
+    test_getNSpecialElement_oneCol();
+}
+
 
 
 void test_tasks() {
@@ -1264,11 +1471,11 @@ void test_tasks() {
     test_findSumOfMaxesOfPseudoDiagonal();
     test_getMinInArea();
     test_sortByDistances();
+    test_countEqClassesByRowsSum();
+    test_getNSpecialElement();
 }
 
 int main() {
     testMatrix();
     test_tasks();
-
-    return 0;
 }

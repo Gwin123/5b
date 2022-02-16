@@ -46,4 +46,8 @@ long long getSum(int *a, int n);
 
 float getDistance(int *a, int n);
 
+int cmp_long_long(const void *pa, const void *pb);
+
+int countNUnique(long long *a, int n);
+
 # endif

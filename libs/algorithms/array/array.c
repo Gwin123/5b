@@ -61,9 +61,37 @@ int compare_ints(const void *a, const void *b) {
     return 0;
 }
 
-void copyArray(int *b, const int *a, size_t size) {
-    for (size_t i = 0; i < size; i++)
-        b[i] = a[i];
+int cmp_long_long(const void *pa, const void *pb) {
+    long long arg1 = *(const long long *) pa;
+    long long arg2 = *(const long long *) pb;
+
+    if (arg1 < arg2)
+        return -1;
+    if (arg1 > arg2)
+        return 1;
+    return 0;
+}
+
+//void copyArray(const int *b, const int *a, size_t size) {
+//    for (size_t i = 0; i < size; i++)
+//        b[i] = a[i];
+//}
+
+int countNUnique(long long *a, int n) {
+    if (n == 1)
+        return 1;
+
+    qsort(a, n, sizeof(long long), cmp_long_long);
+
+    int counterOfUnique = 1;
+    int i = 1;
+    while (i < n) {
+        if (a[i] != a[i - 1])
+            counterOfUnique++;
+        i++;
+    }
+
+    return counterOfUnique;
 }
 
 // возвращает позицию последнего элемента меньшего или равного x
