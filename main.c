@@ -828,6 +828,7 @@ void test_transposeIfMatrixHasNotEqualSumOfRows() {
 //================== task 7 ======================
 
 #include <limits.h>
+#include <math.h>
 
 long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
     int size = m.nRows + m.nCols - 1;
@@ -1861,6 +1862,121 @@ void test_countZeroRows() {
 //    printMatrixWithMaxZeroRows(ms, 5);
 //}
 
+// task 15
+
+int getMatrixNorm(matrix m) {
+    int norm = abs(m.values[0][0]);
+
+    for (int i = 0; i < m.nRows; i++)
+        for (int j = 0; j < m.nCols; j++)
+            if (abs(m.values[i][j]) > norm)
+                norm = abs(m.values[i][j]);
+
+    return norm;
+}
+
+void printMatrixWithMaxNorm(matrix *ms, int nMatrix) {
+    int norms[nMatrix];
+    for (int k = 0; k < nMatrix; k++)
+        norms[k] = getMatrixNorm(ms[k]);
+
+    int max = getMax(norms, nMatrix);
+
+    for (int i = 0; i < nMatrix; i++)
+        if (norms[i] == max)
+            outputMatrix(ms[i]);
+}
+
+void test_getMatrixNorm_rectangleMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, -7, 11,
+                    4, 13, 10,
+                    7, -17, 16,
+                    12, 1, -56
+            },
+            4, 3);
+
+    assert(getMatrixNorm(m) == 56);
+
+    freeMemMatrix(m);
+}
+
+void test_getMatrixNorm_squareZeroMatrix() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 0,
+                    0, 0, 0,
+                    0, 0, 0,
+            },
+            3, 3);
+
+    assert(getMatrixNorm(m) == 0);
+
+    freeMemMatrix(m);
+}
+
+void test_getMatrixNorm_oneRow() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    2,
+                    0,
+                    1
+            },
+            3, 1);
+
+    assert(getMatrixNorm(m) == 2);
+
+    freeMemMatrix(m);
+}
+
+void test_getMatrixNorm_oneCol() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 0, 1
+            },
+            1, 3);
+
+    assert(getMatrixNorm(m) == 1);
+
+    freeMemMatrix(m);
+}
+
+void test_getMatrixNorm_oneColZero() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    0, 1, -12
+            },
+            1, 3);
+
+    assert(getMatrixNorm(m) == 12);
+
+    freeMemMatrix(m);
+}
+
+void test_getMatrixNorm_oneElem() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -12
+            },
+            1, 1);
+
+    assert(getMatrixNorm(m) == 12);
+
+    freeMemMatrix(m);
+}
+
+void test_getMatrixNorm() {
+    test_getMatrixNorm_rectangleMatrix();
+    test_getMatrixNorm_oneElem();
+    test_getMatrixNorm_oneColZero();
+    test_getMatrixNorm_oneRow();
+    test_getMatrixNorm_squareZeroMatrix();
+    test_getMatrixNorm_oneCol();
+}
+
+
+
 void test_tasks() {
     test_sortRowsByMinElement();
     test_swapRowsWithMaxAndMinValues();
@@ -1876,6 +1992,7 @@ void test_tasks() {
     test_swapPenultimateRow();
     test_countNonDescendingRowsMatrices();
     test_countZeroRows();
+    test_getMatrixNorm();
 }
 
 int main() {
