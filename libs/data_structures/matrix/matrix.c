@@ -167,6 +167,13 @@ void transposeSquareMatrix(matrix m) {
             swap(&m.values[i][j], &m.values[j][i], sizeof(int));
 }
 
+bool hasAllNonDescendingRows(matrix m) {
+    for (int i = 0; i < m.nRows; i++)
+        if (!isNonDescendingSorted(m.values[i], m.nCols))
+            return false;
+    return true;
+}
+
 position getMinValuePos(matrix m) {
     int min = m.values[0][0];
     position minPos = {0, 0};

@@ -38,6 +38,8 @@ long long maxArrayLL(long long *a, size_t size);
 
 int getMax(int *a, int n);
 
+bool isNonDescendingSorted(int *a, int n);
+
 int getMin(int *a, int n);
 
 bool isUnique(long long *a, int n);

@@ -39,6 +39,8 @@ void swapRows(matrix m, int i1, int i2);
 
 void swapColumns(matrix m, int j1, int j2);
 
+bool hasAllNonDescendingRows(matrix m);
+
 void insertionSortRowsMatrixByRowCriteriaF(matrix m, float (*criteria)(int *, int));
 
 void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int));
