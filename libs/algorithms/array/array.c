@@ -218,3 +218,12 @@ float getDistance(int *a, int n) {
 
     return sqrtf(distance);
 }
+
+int countValues(const int *a, int n, int value) {
+    int counter = 0;
+    for (int i = 0; i < n; i++)
+        if (a[i] == value)
+            counter++;
+
+    return counter;
+}
