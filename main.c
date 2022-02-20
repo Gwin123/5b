@@ -1975,7 +1975,169 @@ void test_getMatrixNorm() {
     test_getMatrixNorm_oneCol();
 }
 
+// task 17
 
+double getScalarProduct(const int *a, const int *b, int n) {
+    double scalarProduct = 0;
+    for (int i = 0; i < n; i++)
+        scalarProduct += a[i] * b[i];
+
+    return scalarProduct;
+}
+
+double getVectorLength(const int *a, int n) {
+    double length = 0;
+    for (int i = 0; i < n; i++)
+        length += a[i] * a[i];
+
+    return sqrt(length);
+}
+
+double getCosine(int *a, int *b, int n) {
+    double aLength = getVectorLength(a, n);
+    double bLength = getVectorLength(b, n);
+
+    if (aLength == 0 || bLength == 0) {
+        fprintf(stderr, "Length is a zero");
+        exit(1);
+    }
+
+    return getScalarProduct(a, b, n) / (aLength * bLength);
+}
+
+int getVectorIndexWithMaxAngle(matrix m, int *b) {
+
+
+    double minNegativeCos = 0;
+    double minPositiveCos = 1.1;
+    int minNegativePos = 0;
+    int minPositivePos = 0;
+    for (int i = 0; i < m.nRows; i++) {
+        double currentCos = getCosine(m.values[i], b, m.nCols);
+//        printf("%d : %lf \n", i, currentCos);
+        if (currentCos < minNegativeCos && currentCos < 0) {
+            minNegativeCos = currentCos;
+            minNegativePos = i;
+        }
+        else if (currentCos < minPositiveCos && currentCos >= 0) {
+            minPositiveCos = currentCos;
+            minPositivePos = i;
+        }
+    }
+
+//    printf("%lf %lf\n", minNegativeCos, minPositiveCos);
+
+    return minNegativeCos < 0 ? minNegativePos : minPositivePos;
+}
+
+void test_getVectorIndexWithMaxAngle_positiveCos() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 7, 11,
+                    4, 13, 10,
+                    7, 17, 16,
+                    12, 1, 56
+            },
+            4, 3);
+
+    int v[] = {1, 2, 3};
+
+    assert(getVectorIndexWithMaxAngle(m, v) == 3);
+
+    freeMemMatrix(m);
+}
+
+void test_getVectorIndexWithMaxAngle_oneRow() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 7, 11
+            },
+            1, 3);
+
+    int v[] = {1, 2, 3};
+
+    assert(getVectorIndexWithMaxAngle(m, v) == 0);
+
+    freeMemMatrix(m);
+}
+
+
+void test_getVectorIndexWithMaxAngle_negativeCos() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -1, 7, -11,
+                    4, -13, -10,
+                    7, -1, -1,
+                    12, 1, -56
+            },
+            4, 3);
+
+    int v[] = {1, 2, 3};
+
+    assert(getVectorIndexWithMaxAngle(m, v) == 1);
+
+    freeMemMatrix(m);
+}
+
+//void test_getVectorIndexWithMaxAngle_zeroVector() {
+//    matrix m = createMatrixFromArray(
+//            (int[]) {
+//                    1, 7, 11,
+//                    4, 13, 10,
+//                    7, 17, 16,
+//                    12, 1, 56
+//            },
+//            4, 3);
+//
+//    int v[] = {0, 0, 0};
+//
+//    assert(getVectorIndexWithMaxAngle(m, v) == 3);
+//
+//    freeMemMatrix(m);
+//}
+
+void test_getVectorIndexWithMaxAngle_negativeAndPositiveCos() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -1, 7, -11,
+                    4, 13, 10,
+                    7, 1, 1,
+                    12, 1, -6
+            },
+            4, 3);
+
+    int v[] = {1, 2, 3};
+
+    assert(getVectorIndexWithMaxAngle(m, v) == 0);
+
+    freeMemMatrix(m);
+}
+
+void test_getVectorIndexWithMaxAngle_negativeVector() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -1, 7, -11,
+                    4, 13, 10,
+                    7, 1, 1,
+                    12, 1, -6
+            },
+            4, 3);
+
+    int v[] = {-1, -1, -1};
+
+    assert(getVectorIndexWithMaxAngle(m, v) == 1);
+
+    freeMemMatrix(m);
+}
+
+void test_getVectorIndexWithMaxAngle() {
+    test_getVectorIndexWithMaxAngle_positiveCos();
+    test_getVectorIndexWithMaxAngle_negativeCos();
+    test_getVectorIndexWithMaxAngle_negativeAndPositiveCos();
+//    test_getVectorIndexWithMaxAngle_zeroVector();
+    test_getVectorIndexWithMaxAngle_oneRow();
+    test_getVectorIndexWithMaxAngle_negativeVector();
+}
 
 void test_tasks() {
     test_sortRowsByMinElement();
@@ -1993,9 +2155,11 @@ void test_tasks() {
     test_countNonDescendingRowsMatrices();
     test_countZeroRows();
     test_getMatrixNorm();
+    test_getVectorIndexWithMaxAngle();
 }
 
 int main() {
     testMatrix();
     test_tasks();
+
 }
