@@ -843,7 +843,7 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
         for (int j = 0; j < m.nCols; j++)
             if (j != i) {
                 int k = j - i + m.nRows - 1;
-                elemPseudoDiagonal[k] = max(elemPseudoDiagonal[k], m.values[i][j]);
+                elemPseudoDiagonal[k] = max2(elemPseudoDiagonal[k], m.values[i][j]);
             }
 
     return getSum(elemPseudoDiagonal, size);
@@ -1007,7 +1007,7 @@ int getMinInArea(matrix m) {
         jLeft = jLeft > 0 ? jLeft - 1 : jLeft;
         jRight = jRight < m.nCols ? jRight + 1 : jRight;
 
-        minElem = min(getMin(&m.values[i][jLeft], jRight - jLeft), minElem);
+        minElem = min2(getMin(&m.values[i][jLeft], jRight - jLeft), minElem);
     }
 
     return minElem;
@@ -2018,8 +2018,7 @@ int getVectorIndexWithMaxAngle(matrix m, int *b) {
         if (currentCos < minNegativeCos && currentCos < 0) {
             minNegativeCos = currentCos;
             minNegativePos = i;
-        }
-        else if (currentCos < minPositiveCos && currentCos >= 0) {
+        } else if (currentCos < minPositiveCos && currentCos >= 0) {
             minPositiveCos = currentCos;
             minPositivePos = i;
         }
@@ -2139,6 +2138,111 @@ void test_getVectorIndexWithMaxAngle() {
     test_getVectorIndexWithMaxAngle_negativeVector();
 }
 
+// task 16
+
+int getNSpecialElement2(matrix m) {
+    int count = 0;
+
+    for (int i = 0; i < m.nRows; i++) {
+        int maxV = m.values[i][0];
+        for (int j = 0; j < m.nCols; j++) {
+            bool left = j == 0 ? true : false;
+
+            if (!left && m.values[i][j] > maxV) {
+                left = true;
+                maxV = m.values[i][j];
+            }
+
+            bool right = m.nCols - 1 == j ? true : false;
+
+            if (!right) {
+                int min = getMin(m.values[i] + j + 1, m.nCols - j - 1);
+                if (min > m.values[i][j])
+                    right = true;
+            }
+            if (left && right)
+                count++;
+        }
+    }
+    return count;
+}
+
+void test_getNSpecialElement2_leftAndRightElemIsSpecial() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    2, 3, 5, 5, 4,
+                    6, 2, 3, 8, 12,
+                    12, 12, 2, 1, 2
+            }, 3, 5
+    );
+
+    assert(getNSpecialElement2(testMatrix) == 4);
+
+    freeMemMatrix(testMatrix);
+}
+
+void test_getNSpecialElement2_notSpecialElement() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    4, 3, 5, 5, 4,
+                    6, 2, 3, 8, 7,
+                    12, 12, 2, 1, 2
+            }, 3, 5
+    );
+
+    assert(getNSpecialElement2(testMatrix) == 0);
+
+    freeMemMatrix(testMatrix);
+}
+
+void test_getNSpecialElement2_oneElement() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    4
+            }, 1, 1
+    );
+
+    assert(getNSpecialElement2(testMatrix) == 1);
+
+    freeMemMatrix(testMatrix);
+}
+
+void test_getNSpecialElement2_oneRow() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    4, 3, 5, 7, 6
+            }, 1, 5
+    );
+
+    assert(getNSpecialElement2(testMatrix) == 1);
+
+    freeMemMatrix(testMatrix);
+}
+
+void test_getNSpecialElement2_oneCol() {
+    matrix testMatrix = createMatrixFromArray(
+            (int[]) {
+                    4,
+                    3,
+                    5,
+                    7,
+                    6
+            }, 5, 1
+    );
+
+    assert(getNSpecialElement2(testMatrix) == 5);
+
+    freeMemMatrix(testMatrix);
+}
+
+void test_getNSpecialElement2() {
+    test_getNSpecialElement2_leftAndRightElemIsSpecial();
+    test_getNSpecialElement2_notSpecialElement();
+    test_getNSpecialElement2_oneElement();
+    test_getNSpecialElement2_oneRow();
+    test_getNSpecialElement2_oneCol();
+}
+
 void test_tasks() {
     test_sortRowsByMinElement();
     test_swapRowsWithMaxAndMinValues();
@@ -2156,10 +2260,10 @@ void test_tasks() {
     test_countZeroRows();
     test_getMatrixNorm();
     test_getVectorIndexWithMaxAngle();
+    test_getNSpecialElement2();
 }
 
 int main() {
     testMatrix();
     test_tasks();
-
 }

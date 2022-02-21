@@ -65,11 +65,11 @@ int abs(const int x) {
     return (x + mask) ^ mask;
 }
 
-int min(const int x, const int y) {
+int min2(const int x, const int y) {
     return y ^ ((x ^ y) & -(x < y));
 }
 
-int max(const int x, const int y) {
+int max2(const int x, const int y) {
     return x ^ ((x ^ y) & -(x < y));
 }
 
