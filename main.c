@@ -2243,6 +2243,106 @@ void test_getNSpecialElement2() {
     test_getNSpecialElement2_oneCol();
 }
 
+// task 18
+
+long long getScalarProductRowAndCol(matrix m, int i, int j) {
+    long long res = 0;
+
+    int colElem[m.nRows];
+    for (int iRow = 0; iRow < m.nRows; iRow++)
+        colElem[iRow] = m.values[iRow][j];
+
+    for (int jCol = 0; jCol < m.nRows; jCol++) {
+        res += colElem[jCol] * m.values[i][jCol];
+    }
+
+    return res;
+}
+
+long long getSpecialScalarProduct(matrix m) {
+    position maxPosRow = getMaxValuePos(m);
+    position minPosCol = getMinValuePos(m);
+
+    return getScalarProductRowAndCol(m, maxPosRow.rowIndex, minPosCol.colIndex);
+}
+
+void test_getSpecialScalarProduct_positiveElements() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    1, 3, 4,
+                    5, 6, 7,
+                    8, 9, 0
+            }, 3, 3
+    );
+
+    assert(getSpecialScalarProduct(m) == 4 * 8 + 7 * 9);
+
+    freeMemMatrix(m);
+}
+
+void test_getSpecialScalarProduct_negativeElements() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    -1, -3, -4,
+                    -5, -10, -7,
+                    -8, -9, -2
+            }, 3, 3
+    );
+
+    assert(getSpecialScalarProduct(m) == -1 * -3 + -3 * -10 + -4 * -9);
+
+    freeMemMatrix(m);
+}
+
+void test_getSpecialScalarProduct_minAndMaxInOneRow() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    10, 1, 5,
+                    4, 7, 8,
+                    6, 3, 2
+            }, 3, 3
+    );
+
+    assert(getSpecialScalarProduct(m) == 10 * 1 + 1 * 7 + 5 * 3);
+
+    freeMemMatrix(m);
+}
+
+void test_getSpecialScalarProduct_minAndMaxInOneCol() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    10, 4, 5,
+                    6, 7, 8,
+                    1, 3, 2
+            }, 3, 3
+    );
+
+    assert(getSpecialScalarProduct(m) == 10 * 10 + 4 * 6 + 5 * 1);
+
+    freeMemMatrix(m);
+}
+
+void test_getSpecialScalarProduct_oneElement() {
+    matrix m = createMatrixFromArray(
+            (int[]) {
+                    10
+            }, 1, 1
+    );
+
+    assert(getSpecialScalarProduct(m) == 10 * 10);
+
+    freeMemMatrix(m);
+}
+
+
+void test_getSpecialScalarProduct() {
+    test_getSpecialScalarProduct_positiveElements();
+    test_getSpecialScalarProduct_negativeElements();
+    test_getSpecialScalarProduct_minAndMaxInOneRow();
+    test_getSpecialScalarProduct_minAndMaxInOneCol();
+    test_getSpecialScalarProduct_oneElement();
+}
+
 void test_tasks() {
     test_sortRowsByMinElement();
     test_swapRowsWithMaxAndMinValues();
@@ -2261,6 +2361,7 @@ void test_tasks() {
     test_getMatrixNorm();
     test_getVectorIndexWithMaxAngle();
     test_getNSpecialElement2();
+    test_getSpecialScalarProduct();
 }
 
 int main() {
