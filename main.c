@@ -1365,7 +1365,6 @@ int getNSpecialElement(matrix m) {
     return countSpecial;
 }
 
-
 void test_getNSpecialElement_rectangleMatrix() {
     matrix m1 = createMatrixFromArray(
             (int[]) {
@@ -1484,9 +1483,9 @@ void swapPenultimateRow(matrix m) {
         exit(43);
     }
 
-    int col[m.nRows];
     position min = getLeftMin(m);
 
+    int col[m.nRows];
     for (int i = 0; i < m.nRows; i++)
         col[i] = m.values[i][min.colIndex];
 
@@ -1880,10 +1879,10 @@ void printMatrixWithMaxNorm(matrix *ms, int nMatrix) {
     for (int k = 0; k < nMatrix; k++)
         norms[k] = getMatrixNorm(ms[k]);
 
-    int max = getMax(norms, nMatrix);
+    int min = getMin(norms, nMatrix);
 
     for (int i = 0; i < nMatrix; i++)
-        if (norms[i] == max)
+        if (norms[i] == min)
             outputMatrix(ms[i]);
 }
 
@@ -2006,27 +2005,17 @@ double getCosine(int *a, int *b, int n) {
 }
 
 int getVectorIndexWithMaxAngle(matrix m, int *b) {
-
-
-    double minNegativeCos = 0;
-    double minPositiveCos = 1.1;
-    int minNegativePos = 0;
-    int minPositivePos = 0;
+    double maxCornerCos = getCosine(m.values[0], b, m.nCols);
+    int maxCornerCosPos = 0;
     for (int i = 0; i < m.nRows; i++) {
         double currentCos = getCosine(m.values[i], b, m.nCols);
-//        printf("%d : %lf \n", i, currentCos);
-        if (currentCos < minNegativeCos && currentCos < 0) {
-            minNegativeCos = currentCos;
-            minNegativePos = i;
-        } else if (currentCos < minPositiveCos && currentCos >= 0) {
-            minPositiveCos = currentCos;
-            minPositivePos = i;
+        if (currentCos < maxCornerCos) {
+            maxCornerCos = currentCos;
+            maxCornerCosPos = i;
         }
     }
 
-//    printf("%lf %lf\n", minNegativeCos, minPositiveCos);
-
-    return minNegativeCos < 0 ? minNegativePos : minPositivePos;
+    return maxCornerCosPos;
 }
 
 void test_getVectorIndexWithMaxAngle_positiveCos() {
