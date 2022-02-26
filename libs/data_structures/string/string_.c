@@ -2,8 +2,6 @@
 #include <ctype.h>
 #include <memory.h>
 
-
-
 void assertString(const char *expected, char *got,
                   char const *fileName, char const *funcName,
                   int line) {
@@ -62,9 +60,8 @@ char *findSpaceReverse(char *rbegin, const char *rend) {
 }
 
 int strcmp(const char *lhs, const char *rhs) {
-    while (*lhs != '\0' && *rhs != '\0' && *lhs++ == *rhs)
-        rhs++;
-
+    while (*lhs && (*lhs == *rhs))
+        lhs++, rhs++;
     return *lhs - *rhs;
 }
 
