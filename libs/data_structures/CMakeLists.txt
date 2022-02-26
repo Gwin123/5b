@@ -18,7 +18,7 @@ add_library(
 
         fraction/fraction.h fraction/fraction.c
 
-        string/string_.c string/string_.h string/tasks/removeNonLetters.h string/tasks/allTasks.h string/tasks/removeExtraSpaces.h)
+        string/string_.c string/string_.h string/tasks/removeNonLetters.h string/tasks/allTasks.h string/tasks/removeExtraSpaces.h string/tasks/removeAdjacentEqualLetters.h)
 
 target_link_libraries(data_structures algorithms)
 
