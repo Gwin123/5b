@@ -14,7 +14,11 @@ add_library(
         vector/vectorVoid.c
 
         matrix/matrix.c
-        matrix/matrix_test.c matrix/matrix_test.h fraction/fraction.h fraction/fraction.c pain/pain.c pain/pain.h)
+        matrix/matrix_test.c matrix/matrix_test.h
+
+        fraction/fraction.h fraction/fraction.c
+
+        string/string_.c string/string_.h string/tasks/removeNonLetters.h string/tasks/allTasks.h string/tasks/removeExtraSpaces.h)
 
 target_link_libraries(data_structures algorithms)
 
