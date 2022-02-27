@@ -74,6 +74,7 @@ void test_digitToStartForEveryWord() {
     test_digitToStartForEveryWord_noLetters();
     test_digitToStartForEveryWord_allSpaces();
     test_digitToStartForEveryWord_emptyString();
+
 }
 
 #endif //LAST_DIGITTOSTARTWITHOUTCHANGINGTHEORDER_H

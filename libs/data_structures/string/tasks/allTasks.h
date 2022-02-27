@@ -10,6 +10,7 @@
 #include "removeAdjacentEqualLetters.h"
 #include "digitToStartWithoutChangingTheOrder.h"
 #include "spaceAfterEveryFigure.h"
+#include "isWordsOrdered.h"
 
 void allTests() {
     test_removeNonLetters();
@@ -17,6 +18,7 @@ void allTests() {
     test_removeAdjacentEqualLetters();
     test_digitToStartForEveryWord();
     test_spaceAfterEveryFigure();
+    test_isWordsOrdered();
 }
 
 #endif //LAST_ALLTASKS_H

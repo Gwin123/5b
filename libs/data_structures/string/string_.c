@@ -117,7 +117,7 @@ bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
     return true;
 }
 
-char *strstr(char *source, char *word) {
+char *strstr_(char *source, char *word) {
     while (*source != '\0') {
 
         if (*source == *word) {
@@ -155,7 +155,7 @@ void replace(char *source, char *w1, char *w2) {
     }
 
     while (*readPtr != '\0') {
-        char *beginWord = strstr(readPtr, word1.begin);
+        char *beginWord = strstr_(readPtr, word1.begin);
         recPtr = copy(readPtr, beginWord, recPtr);
         readPtr = beginWord + w1Size;
 
@@ -171,9 +171,7 @@ void replace(char *source, char *w1, char *w2) {
     *recPtr = '\0';
 }
 
-// source "Daniil Hello World"    w1 "Hello"    w2 "Bey"
-// source "Daniil
-//                w
-//         r      r
-//         w
+int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
+    return strcmp(w1.begin, w2.begin);
+}
 

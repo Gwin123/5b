@@ -50,6 +50,7 @@ void test_removeNonLetters() {
     test_removeNonLetters_withSpaceSymbols();
     test_removeNonLetters_emptyString();
     test_removeNonLetters_allSpaceSymbols();
+
 }
 
 #endif //LAST_REMOVENONLETTERS_H

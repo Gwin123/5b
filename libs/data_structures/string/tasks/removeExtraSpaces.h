@@ -68,6 +68,7 @@ void test_removeExtraSpaces() {
     test_removeExtraSpaces_emptyString();
     test_removeExtraSpaces_oneWord();
     test_removeExtraSpaces_allSpaces();
+
 }
 
 
