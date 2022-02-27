@@ -30,19 +30,17 @@ char *find(char *begin, const char *end, int ch) {
 }
 
 char *findNonSpace(char *begin) {
-    char *end = begin;
-    while (*end != '\0' && isspace(*end))
-        end++;
+    while (*begin != '\0' && isspace(*begin))
+        begin++;
 
-    return end;
+    return begin;
 }
 
 char *findSpace(char *begin) {
-    char *end = begin;
-    while (*end != '\0' && !isspace(*end))
-        end++;
+    while (*begin != '\0' && !isspace(*begin))
+        begin++;
 
-    return end;
+    return begin;
 }
 
 char *findNonSpaceReverse(char *rbegin, const char *rend) {
@@ -81,7 +79,7 @@ char *copyIf(char *beginSource, const char *endSource, char *beginDestination, i
     return beginDestination;
 }
 
-char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)) {
+char *copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)) {
     while (rbeginSource != rendSource) {
         if (f(*rbeginSource))
             *(beginDestination++) = *rbeginSource;

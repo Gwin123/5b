@@ -9,12 +9,14 @@
 #include "removeExtraSpaces.h"
 #include "removeAdjacentEqualLetters.h"
 #include "digitToStartWithoutChangingTheOrder.h"
+#include "spaceAfterEveryFigure.h"
 
 void allTests() {
     test_removeNonLetters();
     test_removeExtraSpaces();
     test_removeAdjacentEqualLetters();
     test_digitToStartForEveryWord();
+    test_spaceAfterEveryFigure();
 }
 
 #endif //LAST_ALLTASKS_H

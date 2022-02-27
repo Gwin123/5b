@@ -2,13 +2,12 @@
 #include <stdbool.h>
 #include <limits.h>
 
-#ifndef LIST_H_
-#define LIST_H_
+#ifndef STRING_H
+#define STRING_H
 
 #define MAX_STRING_SIZE 100
 #define MAX_N_WORDS_IN_STRING 100
 #define MAX_WORD_SIZE 20
-
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
 
