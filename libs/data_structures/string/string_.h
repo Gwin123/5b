@@ -47,4 +47,8 @@ char *copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
 
 char *getEndOfString(char *begin);
 
+char *strstr(char *source, char *word);
+
+void replace(char *source, char *w1, char *w2);
+
 #endif

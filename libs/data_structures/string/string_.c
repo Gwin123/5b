@@ -60,6 +60,7 @@ char *findSpaceReverse(char *rbegin, const char *rend) {
 int strcmp(const char *lhs, const char *rhs) {
     while (*lhs && (*lhs == *rhs))
         lhs++, rhs++;
+
     return *lhs - *rhs;
 }
 
@@ -109,10 +110,70 @@ bool getWord(char *beginSearch, WordDescriptor *word) {
 bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
     word->begin = findNonSpaceReverse(rbegin, rend);
     if (word->begin == rend)
-        return 0;
+        return false;
 
     word->end = findSpaceReverse(word->begin, rend);
 
-    return 1;
+    return true;
 }
+
+char *strstr(char *source, char *word) {
+    while (*source != '\0') {
+
+        if (*source == *word) {
+            bool isFound = true;
+
+            char *beginSearchWord = word;
+            char *beginSearchSource = source;
+
+            while (*beginSearchWord && isFound)
+                isFound = *beginSearchWord++ == *beginSearchSource++;
+
+            if (isFound)
+                return source;
+        }
+        source++;
+    }
+    return source;
+}
+
+void replace(char *source, char *w1, char *w2) {
+    size_t w1Size = strlen_(w1);
+    size_t w2Size = strlen_(w2);
+    WordDescriptor word1 = {w1, w1 + w1Size};
+    WordDescriptor word2 = {w2, w2 + w2Size};
+
+    char *readPtr, *recPtr;
+    if (w1Size >= w2Size) {
+        readPtr = source;
+        recPtr = source;
+    } else {
+        char *end = copy(source, getEndOfString(source), _stringBuffer);
+        *end = '\0';
+        readPtr = _stringBuffer;
+        recPtr = source;
+    }
+
+    while (*readPtr != '\0') {
+        char *beginWord = strstr(readPtr, word1.begin);
+        recPtr = copy(readPtr, beginWord, recPtr);
+        readPtr = beginWord + w1Size;
+
+        if (*beginWord == '\0') {
+            *recPtr = '\0';
+            return;
+        }
+
+        memcpy(recPtr, word2.begin, w2Size);
+
+        recPtr += w2Size;
+    }
+    *recPtr = '\0';
+}
+
+// source "Daniil Hello World"    w1 "Hello"    w2 "Bey"
+// source "Daniil
+//                w
+//         r      r
+//         w
 
