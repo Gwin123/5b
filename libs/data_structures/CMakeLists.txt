@@ -24,7 +24,7 @@ add_library(
         string/tasks/removeExtraSpaces.h
         string/tasks/removeAdjacentEqualLetters.h
         string/tasks/digitToStartWithoutChangingTheOrder.h
-        string/tasks/spaceAfterEveryFigure.h string/tasks/isWordsOrdered.h)
+        string/tasks/spaceAfterEveryFigure.h string/tasks/isWordsOrdered.h string/tasks/reverseWordsInString.h)
 
 target_link_libraries(data_structures algorithms)
 

@@ -11,6 +11,7 @@
 #include "digitToStartWithoutChangingTheOrder.h"
 #include "spaceAfterEveryFigure.h"
 #include "isWordsOrdered.h"
+#include "reverseWordsInString.h"
 
 void allTests() {
     test_removeNonLetters();
@@ -19,6 +20,7 @@ void allTests() {
     test_digitToStartForEveryWord();
     test_spaceAfterEveryFigure();
     test_isWordsOrdered();
+    test_reverseWords();
 }
 
 #endif //LAST_ALLTASKS_H
