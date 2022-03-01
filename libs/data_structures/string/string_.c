@@ -91,6 +91,15 @@ char *copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
     return beginDestination;
 }
 
+char *copyReverse(char *rbeginSource, const char *rendSource, char *beginDestination) {
+    while (rbeginSource != rendSource) {
+            *beginDestination++ = *rbeginSource;
+
+        rbeginSource--;
+    }
+    return beginDestination;
+}
+
 char *getEndOfString(char *begin) {
     while (*begin != '\0')
         begin++;
