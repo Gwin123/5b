@@ -101,22 +101,25 @@ char *getEndOfString(char *begin) {
 bool getWord(char *beginSearch, WordDescriptor *word) {
     word->begin = findNonSpace(beginSearch);
     if (*word->begin == '\0')
-        return 0;
+        return false;
 
     word->end = findSpace(word->begin);
 
-    return 1;
+    return true;
 }
 
 bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
-    word->begin = findNonSpaceReverse(rbegin, rend);
-    if (word->begin == rend)
+    word->end = findNonSpaceReverse(rbegin, rend) + 1;
+
+    if (word->end == rend)
         return false;
 
-    word->end = findSpaceReverse(word->begin, rend);
+    word->begin = findSpaceReverse(word->end, rend) + 1;
 
     return true;
 }
+
+//this task has caused me a lot of pain
 
 char *strstr_(char *source, char *word) {
     while (*source != '\0') {
@@ -149,8 +152,7 @@ void replace(char *source, char *w1, char *w2) {
         readPtr = source;
         recPtr = source;
     } else {
-        char *end = copy(source, getEndOfString(source), _stringBuffer);
-        *end = '\0';
+        *copy(source, getEndOfString(source), _stringBuffer) = '\0';
         readPtr = _stringBuffer;
         recPtr = source;
     }

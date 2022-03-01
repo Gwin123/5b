@@ -12,6 +12,7 @@
 #include "spaceAfterEveryFigure.h"
 #include "isWordsOrdered.h"
 #include "reverseWordsInString.h"
+#include "countOfPalindorme.h"
 
 void allTests() {
     test_removeNonLetters();
@@ -20,7 +21,8 @@ void allTests() {
     test_digitToStartForEveryWord();
     test_spaceAfterEveryFigure();
     test_isWordsOrdered();
-    test_reverseWords();
+//    test_reverseWords();
+    test_countOfPalindrome();
 }
 
 #endif //LAST_ALLTASKS_H
