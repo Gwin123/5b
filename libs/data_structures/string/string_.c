@@ -93,7 +93,7 @@ char *copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
 
 char *copyReverse(char *rbeginSource, const char *rendSource, char *beginDestination) {
     while (rbeginSource != rendSource) {
-            *beginDestination++ = *rbeginSource;
+        *beginDestination++ = *rbeginSource;
 
         rbeginSource--;
     }
@@ -127,8 +127,6 @@ bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
 
     return true;
 }
-
-//this task has caused me a lot of pain
 
 char *strstr_(char *source, char *word) {
     while (*source != '\0') {
@@ -184,7 +182,12 @@ void replace(char *source, char *w1, char *w2) {
 }
 
 int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
-    return strcmp(w1.begin, w2.begin);
+    char *begin1 = w1.begin;
+    char *begin2 = w2.begin;
+    while (begin1 != w1.end - 1 && begin2 != w2.end - 1 && (*begin1 == *begin2))
+        begin1++, begin2++;
+
+    return *begin1 - *begin2;
 }
 
 void getBagOfWords(BagOfWords *bag, char *s) {

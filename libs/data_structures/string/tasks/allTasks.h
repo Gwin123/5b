@@ -14,6 +14,7 @@
 #include "reverseWordsInString.h"
 #include "countOfPalindorme.h"
 #include "reverseWord.h"
+#include "deleteMatchesWithTheLastWord.h"
 
 void allTests() {
     test_removeNonLetters();
@@ -25,6 +26,7 @@ void allTests() {
 //    test_reverseWords();
     test_reverseWord();
     test_countOfPalindrome();
+    test_deleteMatchesWithTheLastWord();
 }
 
 #endif //LAST_ALLTASKS_H

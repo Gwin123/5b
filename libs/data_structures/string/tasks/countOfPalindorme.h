@@ -7,16 +7,16 @@
 
 #include <stdio.h>
 #include <assert.h>
+#define COMMA_NUMBER 44
 
 bool isPalindrome(char *begin, char *end);
 
 size_t countOfPalindrome(char *s) {
-    static char commaNumber = 44;
     char *endS = getEndOfString(s);
     char *beginSearch = findNonSpace(s);
     int countPal = 0;
 
-    char *commaPos = find(beginSearch, endS, commaNumber);
+    char *commaPos = find(beginSearch, endS, COMMA_NUMBER);
     bool lastComma = false;
     while (*commaPos != '\0' || lastComma) {
         beginSearch = findNonSpace(beginSearch);
@@ -28,7 +28,7 @@ size_t countOfPalindrome(char *s) {
         if (lastComma)
             break;
 
-        commaPos = find(beginSearch, endS, commaNumber);
+        commaPos = find(beginSearch, endS, COMMA_NUMBER);
         lastComma = *commaPos == '\0';
     }
     return countPal;

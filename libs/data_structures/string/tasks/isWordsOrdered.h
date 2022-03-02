@@ -16,6 +16,7 @@ bool isWordsOrdered(char *s) {
         return true;
 
     WordDescriptor previousWord = currentWord;
+    beginSearch = previousWord.end;
 
     while (getWord(beginSearch, &currentWord)) {
         if (areWordsEqual(currentWord, previousWord) < 0)
@@ -42,9 +43,14 @@ void test_isWordsOrdered_ordered() {
     assert(isWordsOrdered(s));
 }
 
-void test_isWordsOrdered_unordered() {
-    char s[] = "banana banana apple";
+void test_isWordsOrdered_unorderedLastLetterAreDifferent() {
+    char s[] = "bananz bananf";
     assert(!isWordsOrdered(s));
+}
+
+void test_isWordsOrdered_orderedLastLetterAreDifferent() {
+    char s[] = "bananf bananz";
+    assert(isWordsOrdered(s));
 }
 
 void test_isWordsOrdered_oneWord() {
@@ -58,10 +64,11 @@ void test_isWordsOrdered_emptyString() {
 }
 
 void test_isWordsOrdered() {
+    test_isWordsOrdered_unorderedLastLetterAreDifferent();
     test_isWordsOrdered_oneLetterOrdered();
     test_isWordsOrdered_oneLetterUnordered();
     test_isWordsOrdered_ordered();
-    test_isWordsOrdered_unordered();
+    test_isWordsOrdered_orderedLastLetterAreDifferent();
     test_isWordsOrdered_oneWord();
     test_isWordsOrdered_emptyString();
 }

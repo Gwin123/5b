@@ -10,19 +10,17 @@
 #define CODE_DIFFERENCE 48
 
 void spaceAfterEveryFigure(char *s) {
-    char *endOfString = getEndOfString(s);
     char *startBuffer = _stringBuffer;
-    char *endOfBuffer = copy(s, endOfString, startBuffer);
-    *endOfBuffer = '\0';
+    char *endOfBuffer = copy(s, getEndOfString(s), startBuffer);
 
-    while (*startBuffer != '\0') {
-        if (isalpha(*startBuffer))
-            *s++ = *startBuffer;
-        else if (isdigit(*startBuffer)) {
+    while (startBuffer < endOfBuffer) {
+        if (isdigit(*startBuffer)) {
             unsigned char a = *startBuffer - CODE_DIFFERENCE;
             while (a--)
                 *s++ = ' ';
-        }
+        } else
+            *s++ = *startBuffer;
+
         startBuffer++;
     }
     *s = '\0';
@@ -35,9 +33,9 @@ void test_spaceAfterEveryFigure_figuresInWord() {
 }
 
 void test_spaceAfterEveryFigure_AfterBeforeWord() {
-    char s[MAX_STRING_SIZE] = "4A3B12E0C1";
+    char s[MAX_STRING_SIZE] = "4A3B12E0C1\t";
     spaceAfterEveryFigure(s);
-    ASSERT_STRING("    A   B   EC ", s);
+    ASSERT_STRING("    A   B   EC \t", s);
 }
 
 void test_spaceAfterEveryFigure_noFigures() {

@@ -1,9 +1,9 @@
+#ifndef STRING_H
+#define STRING_H
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <limits.h>
-
-#ifndef STRING_H
-#define STRING_H
 
 #define MAX_STRING_SIZE 100
 #define MAX_N_WORDS_IN_STRING 100
