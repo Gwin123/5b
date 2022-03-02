@@ -37,7 +37,7 @@ void test_deleteMatchesWithTheLastWord_someLastWords() {
     ASSERT_STRING("World Book", s);
 }
 
-void test_deleteMatchesWithTheLastWord_equalWords() {
+void test_deleteMatchesWithTheLastWord_moreEqualWords() {
     char s[] = "Hello Hello Hello Hello";
     deleteMatchesWithTheLastWord(s);
     ASSERT_STRING("", s);
@@ -59,7 +59,7 @@ void test_deleteMatchesWithTheLastWord() {
     test_deleteMatchesWithTheLastWord_someLastWords();
     test_deleteMatchesWithTheLastWord_oneWord();
     test_deleteMatchesWithTheLastWord_empty();
-    test_deleteMatchesWithTheLastWord_equalWords();
+    test_deleteMatchesWithTheLastWord_moreEqualWords();
 }
 
 #endif //LAST_DELETEMATCHESWITHTHELASTWORD_H

@@ -15,6 +15,9 @@
 #include "countOfPalindorme.h"
 #include "reverseWord.h"
 #include "deleteMatchesWithTheLastWord.h"
+#include "changingWords.h"
+
+//TODO 7 11 12 13 14 18 19
 
 void allTests() {
     test_removeNonLetters();
@@ -25,6 +28,7 @@ void allTests() {
     test_isWordsOrdered();
 //    test_reverseWords();
     test_reverseWord();
+    test_changingWords();
     test_countOfPalindrome();
     test_deleteMatchesWithTheLastWord();
 }
