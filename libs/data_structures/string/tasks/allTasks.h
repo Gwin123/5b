@@ -17,10 +17,12 @@
 #include "deleteMatchesWithTheLastWord.h"
 #include "changingWords.h"
 #include "hasEqualWords.h"
+#include "getWordBeforeFirstWordWithA.h"
 
-//TODO 11 12 13 14 18 19
+//TODO 11 12 14 18 19
 
 void allTests() {
+    testAll_getWordBeforeFirstWordWithA();
     test_removeNonLetters();
     test_removeExtraSpaces();
     test_removeAdjacentEqualLetters();
@@ -33,6 +35,7 @@ void allTests() {
     test_countOfPalindrome();
     test_deleteMatchesWithTheLastWord();
     test_hasEqualWords();
+
 }
 
 #endif //LAST_ALLTASKS_H
