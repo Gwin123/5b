@@ -117,8 +117,39 @@ bool getWord(char *beginSearch, WordDescriptor *word) {
     return true;
 }
 
+// [rbegin, rend)
+bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
+    word->end = findNonSpaceReverse(rbegin, rend) + 1;
+
+    if (word->end == rend)
+        return false;
+
+    word->begin = findSpaceReverse(word->end - 1, rend) + 1;
+
+    return true;
+}
+
+//                              012345678    8 - 4 = 4   7 - 4 = 3
+//"this task has caused me a lot of pain"
+//e                                 r   b
+
+
 //bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
-//    word->end = findNonSpaceReverse(rbegin, rend) + 1;
+//    word->end = findNonSpaceReverse(rbegin, rend);
+//
+//    word->begin = findSpaceReverse(word->end, rend);
+//
+//    if (*word->end == '\0')
+//        return 0;
+//    return 1;
+//}
+//
+//int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
+//    return strcmp(w1.begin, w2.begin);
+//}
+
+//bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word){
+//    word->end = findNonSpaceReverse(rbegin, rend);
 //
 //    if (word->end == rend)
 //        return false;
@@ -127,17 +158,6 @@ bool getWord(char *beginSearch, WordDescriptor *word) {
 //
 //    return true;
 //}
-
-bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word){
-    word->end = findNonSpaceReverse(rbegin, rend);
-
-    if (word->end == rend)
-        return false;
-
-    word->begin = findSpaceReverse(word->end, rend) + 1;
-
-    return true;
-}
 
 char *strstr_(char *source, char *word) {
     while (*source != '\0') {

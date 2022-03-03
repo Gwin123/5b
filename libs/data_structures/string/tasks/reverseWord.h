@@ -23,8 +23,10 @@ void reverseWord(char *s) {
         }
         *begin++ = ' ';
     }
-    if (*(begin - 1) == ' ')
-        *--begin = '\0';
+    if (begin != s)
+        begin--;
+
+    *begin = '\0';
 }
 
 void test_reverseWord_moreLettersInWord() {

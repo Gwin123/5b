@@ -26,7 +26,7 @@ void allTests() {
     test_digitToStartForEveryWord();
     test_spaceAfterEveryFigure();
     test_isWordsOrdered();
-//    test_reverseWords();
+    test_reverseWords();
     test_reverseWord();
     test_changingWords();
     test_countOfPalindrome();

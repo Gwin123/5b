@@ -11,20 +11,35 @@ void reverseWords(char *s) {
     char *end = copy(s, getEndOfString(s), _stringBuffer);
     char *beginCopy = s;
 
-    char *beginSearch = end;
-    WordDescriptor word;
-    while (getWordReverse(beginSearch, _stringBuffer, &word)) {
-        beginCopy = copy(word.begin, word.end, beginCopy);
+    char *beginSearch = end - 1;
+    WordDescriptor w;
 
-        beginSearch -= word.end - word.begin;
+    while (getWordReverse(beginSearch, _stringBuffer - 1, &w)) {
+        beginCopy = copy(w.begin, w.end, beginCopy);
+        *beginCopy++ = ' ';
+
+        beginSearch -= w.end - w.begin + 1;
+        beginSearch = findNonSpaceReverse(beginSearch, _stringBuffer - 1);
     }
+
+    if (beginCopy != s)
+        beginCopy--;
+
+    *beginCopy = '\0';
 }
 
 void test_reverseWords_moreLettersInWord() {
-    char s[MAX_STRING_SIZE] = "this task has caused me a lot of pain";
+    char s[MAX_STRING_SIZE] = "this   task   has   caused me   a lot of pain ";
     reverseWords(s);
 
     ASSERT_STRING("pain of lot a me caused has task this", s);
+}
+
+void test_reverseWords_oneWord() {
+    char s[MAX_STRING_SIZE] = "pain";
+    reverseWords(s);
+
+    ASSERT_STRING("pain", s);
 }
 
 void test_reverseWords_oneLetter() {
@@ -43,8 +58,9 @@ void test_reverseWords_empty() {
 
 void test_reverseWords() {
     test_reverseWords_moreLettersInWord();
-//    test_reverseWords_oneLetter();
-//    test_reverseWords_empty();
+    test_reverseWords_oneLetter();
+    test_reverseWords_empty();
+    test_reverseWords_oneWord();
 }
 
 #endif //LAST_REVERSEWORDSINSTRING_H
