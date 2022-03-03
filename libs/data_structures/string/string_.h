@@ -65,4 +65,6 @@ int areWordsEqual(WordDescriptor w1, WordDescriptor w2);
 
 void getBagOfWords(BagOfWords *bag, char *s);
 
+void wordDescriptorToString(WordDescriptor word, char *destination);
+
 #endif

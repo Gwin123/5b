@@ -133,32 +133,6 @@ bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
 //"this task has caused me a lot of pain"
 //e                                 r   b
 
-
-//bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
-//    word->end = findNonSpaceReverse(rbegin, rend);
-//
-//    word->begin = findSpaceReverse(word->end, rend);
-//
-//    if (*word->end == '\0')
-//        return 0;
-//    return 1;
-//}
-//
-//int areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
-//    return strcmp(w1.begin, w2.begin);
-//}
-
-//bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word){
-//    word->end = findNonSpaceReverse(rbegin, rend);
-//
-//    if (word->end == rend)
-//        return false;
-//
-//    word->begin = findSpaceReverse(word->end, rend) + 1;
-//
-//    return true;
-//}
-
 char *strstr_(char *source, char *word) {
     while (*source != '\0') {
 
@@ -231,5 +205,9 @@ void getBagOfWords(BagOfWords *bag, char *s) {
         bag->size++;
         beginSearch = word.end;
     }
+}
+
+void wordDescriptorToString(WordDescriptor word, char *destination) {
+    *copy(word.begin, word.end, destination) = '\0';
 }
 

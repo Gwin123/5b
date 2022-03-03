@@ -18,8 +18,9 @@
 #include "changingWords.h"
 #include "hasEqualWords.h"
 #include "getWordBeforeFirstWordWithA.h"
+#include "lastOfWordsOfTheFirstStringInTheSecondString.h"
 
-//TODO 11 12 14 18 19
+//TODO 12 14 18 19
 
 void allTests() {
     testAll_getWordBeforeFirstWordWithA();
@@ -35,7 +36,7 @@ void allTests() {
     test_countOfPalindrome();
     test_deleteMatchesWithTheLastWord();
     test_hasEqualWords();
-
+    test_getLastWordInFirstStringInTheSecondString();
 }
 
 #endif //LAST_ALLTASKS_H
