@@ -211,3 +211,14 @@ void wordDescriptorToString(WordDescriptor word, char *destination) {
     *copy(word.begin, word.end, destination) = '\0';
 }
 
+int compare_letters(const void *a, const void *b) {
+    char arg1 = *(const char *) a;
+    char arg2 = *(const char *) b;
+
+    if (arg1 < arg2)
+        return -1;
+    if (arg1 > arg2)
+        return 1;
+    return 0;
+}
+

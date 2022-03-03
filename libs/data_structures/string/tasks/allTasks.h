@@ -19,8 +19,9 @@
 #include "hasEqualWords.h"
 #include "getWordBeforeFirstWordWithA.h"
 #include "lastOfWordsOfTheFirstStringInTheSecondString.h"
+#include "areWordsFromSameLetters.h"
 
-//TODO 12 14 18 19
+//TODO 14 18 19
 
 void allTests() {
     testAll_getWordBeforeFirstWordWithA();
@@ -37,6 +38,7 @@ void allTests() {
     test_deleteMatchesWithTheLastWord();
     test_hasEqualWords();
     test_getLastWordInFirstStringInTheSecondString();
+    test_areWordsFromSameLetters();
 }
 
 #endif //LAST_ALLTASKS_H
