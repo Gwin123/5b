@@ -21,8 +21,9 @@
 #include "lastOfWordsOfTheFirstStringInTheSecondString.h"
 #include "areWordsFromSameLetters.h"
 #include "areLettersFirstWordInSecondString.h"
+#include "addLastWordsSecondStringToFirstString.h"
 
-//TODO 18 19
+//TODO 18
 
 void allTests() {
     testAll_getWordBeforeFirstWordWithA();
@@ -41,6 +42,7 @@ void allTests() {
     test_getLastWordInFirstStringInTheSecondString();
     test_areWordsFromSameLetters();
     test_areLettersFirstWordInSecondString();
+    test_addLastWordsSecondStringToFirstString();
 }
 
 #endif //LAST_ALLTASKS_H
