@@ -221,4 +221,3 @@ int compare_letters(const void *a, const void *b) {
         return 1;
     return 0;
 }
-
