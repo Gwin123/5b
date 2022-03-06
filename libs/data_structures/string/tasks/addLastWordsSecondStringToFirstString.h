@@ -7,6 +7,9 @@
 
 #include "../string_.h"
 
+// Даны две строки. Пусть 𝑛1 – число слов в первой строке, а 𝑛2 – во второй.
+// Требуется дополнить строку, содержащую меньшее количество слов, последними
+//словами строки, в которой содержится большее количество слов
 void addLastWordsSecondStringToFirstString_(char *s1, char *s2, size_t size1, size_t size2) {
     size_t difference = size1 - size2;
 
@@ -20,6 +23,7 @@ void addLastWordsSecondStringToFirstString_(char *s1, char *s2, size_t size1, si
     }
     char *endS2 = getEndOfString(s2);
     *endS2++ = ' ';
+
     *copy(w.begin, getEndOfString(s1), endS2) = '\0';
 }
 

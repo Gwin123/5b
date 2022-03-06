@@ -7,6 +7,7 @@
 
 #include "../string_.h"
 
+// Получить строку из слов данной строки, которые отличны от последнего слова (15, 17)
 void deleteMatchesWithTheLastWord(char *s) {
     WordDescriptor lastWord;
     bool isLast = getWordReverse(getEndOfString(s), s - 1, &lastWord);

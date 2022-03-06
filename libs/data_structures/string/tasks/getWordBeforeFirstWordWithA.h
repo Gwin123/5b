@@ -14,6 +14,8 @@ typedef enum WordBeforeFirstWordWithAReturnCode {
     EMPTY_STRING
 } WordBeforeFirstWordWithAReturnCode;
 
+//Вывести слово данной строки, предшествующее первому из слов, содержащих
+//букву "а".
 WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *s, char **beginWordBefore, char **endWordBefore) {
     WordDescriptor w1;
     char *begin = s;

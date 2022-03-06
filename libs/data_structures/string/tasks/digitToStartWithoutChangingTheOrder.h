@@ -8,6 +8,9 @@
 #include "../string_.h"
 #include <ctype.h>
 
+//Преобразовать строку таким образом, чтобы цифры каждого слова были
+//перенесены в начало слова без изменения порядка следования их в слове,
+//буквы перенести в конец слова
 void digitToStartWithoutChangingOrder(WordDescriptor word) {
     char *endStringBuffer = copy(word.begin, word.end, _stringBuffer);
     char *recPosition = copyIf(_stringBuffer, endStringBuffer, word.begin, isdigit);

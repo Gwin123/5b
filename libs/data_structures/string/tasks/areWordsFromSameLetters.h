@@ -13,6 +13,7 @@ int cmp(const void *a, const void *b) {
     return *(const char *) a - *(const char *) b;
 }
 
+//Определить, есть ли в данной строке пара слов, составленных из одинаковых букв.
 bool areWordsFromSameLetters(char *s) {
     *copy(s, getEndOfString(s), _stringBuffer) = '\0';
     getBagOfWords(&_bag, _stringBuffer);

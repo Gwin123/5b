@@ -8,19 +8,14 @@
 #include "../string_.h"
 #include <stdio.h>
 
+//Вывести слова данной строки в обратном порядке по одному в строке экрана
 void reverseWord(char *s) {
     *copy(s, getEndOfString(s), _stringBuffer) = '\0';
     getBagOfWords(&_bag, _stringBuffer);
 
     char *begin = s;
     for (int i = 0; i < _bag.size; i++) {
-        char *end = _bag.words[i].end;
-        char *start = _bag.words[i].begin;
-
-        while (end - 1 != start - 1) {
-            *begin++ = *(end - 1);
-            end--;
-        }
+        begin = copyReverse(_bag.words[i].end - 1, _bag.words[i].begin - 1, begin);
         *begin++ = ' ';
     }
     if (begin != s)

@@ -8,6 +8,7 @@
 #include "ctype.h"
 #include "../string_.h"
 
+// Определить, входит ли в данную строку каждая буква данного слова
 bool areLettersFirstWordInSecondString(char *word, char *s) {
     if (*word == '\0' || *s == '\0')
         return false;

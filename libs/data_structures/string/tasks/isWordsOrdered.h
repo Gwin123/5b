@@ -9,6 +9,7 @@
 #include "../string_.h"
 #include <assert.h>
 
+//Определить, упорядочены ли лексикографически слова данного предложения
 bool isWordsOrdered(char *s) {
     char *beginSearch = s;
     WordDescriptor currentWord;

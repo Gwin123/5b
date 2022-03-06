@@ -153,6 +153,7 @@ char *strstr_(char *source, char *word) {
     return source;
 }
 
+// Заменить все вхождения подстроки 𝑤1 на подстроку 𝑤2
 void replace(char *source, char *w1, char *w2) {
     size_t w1Size = strlen_(w1);
     size_t w2Size = strlen_(w2);

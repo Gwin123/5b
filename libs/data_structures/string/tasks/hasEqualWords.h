@@ -7,6 +7,7 @@
 
 #include "../string_.h"
 
+//Определить, есть ли в данной строке одинаковые слова
 bool hasEqualWords(char *s) {
     getBagOfWords(&_bag, s);
 

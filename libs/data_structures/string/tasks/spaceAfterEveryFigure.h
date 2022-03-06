@@ -7,15 +7,16 @@
 
 #include "../string_.h"
 #include <ctype.h>
-#define CODE_DIFFERENCE 48
 
+//Преобразовать строку, заменяя каждую цифру
+//соответствующим ей числом пробелов
 void spaceAfterEveryFigure(char *s) {
     char *startBuffer = _stringBuffer;
     char *endOfBuffer = copy(s, getEndOfString(s), startBuffer);
 
     while (startBuffer < endOfBuffer) {
         if (isdigit(*startBuffer)) {
-            unsigned char a = *startBuffer - CODE_DIFFERENCE;
+            unsigned char a = *startBuffer - '0';
             while (a--)
                 *s++ = ' ';
         } else

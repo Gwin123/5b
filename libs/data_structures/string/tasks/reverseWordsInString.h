@@ -7,13 +7,13 @@
 
 #include "../string_.h"
 
+//Преобразовать строку, изменив порядок следования слов в строке на обратный
 void reverseWords(char *s) {
     char *end = copy(s, getEndOfString(s), _stringBuffer);
     char *beginCopy = s;
 
     char *beginSearch = end - 1;
     WordDescriptor w;
-
     while (getWordReverse(beginSearch, _stringBuffer - 1, &w)) {
         beginCopy = copy(w.begin, w.end, beginCopy);
         *beginCopy++ = ' ';

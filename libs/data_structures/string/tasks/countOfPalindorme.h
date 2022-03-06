@@ -10,6 +10,8 @@
 
 bool isPalindrome(char *begin, char *end);
 
+//В данной строке соседние слова разделены запятыми. Определить количество
+//слов-палиндромов.
 size_t countOfPalindrome(char *s) {
     char *endS = getEndOfString(s);
     char *beginSearch = findNonSpace(s);

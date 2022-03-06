@@ -7,6 +7,8 @@
 
 #include "../string_.h"
 
+//Даны две строки. Определить последнее из слов первой строки, которое есть
+//во второй строке (16, 12)
 WordDescriptor getLastWordInFirstStringInTheSecondString(char *s1, char *s2) {
     getBagOfWords(&_bag, s1);
     getBagOfWords(&_bag2, s2);
