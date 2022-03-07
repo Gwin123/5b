@@ -55,7 +55,7 @@ void test_isWordsOrdered_orderedLastLetterAreDifferent() {
 }
 
 void test_isWordsOrdered_oneWord() {
-    char s[] = "banana";
+    char s[] = "banana banana";
     assert(isWordsOrdered(s));
 }
 

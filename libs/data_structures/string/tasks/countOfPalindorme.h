@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <assert.h>
+#include "../string_.h"
 
 bool isPalindrome(char *begin, char *end);
 
@@ -18,7 +19,7 @@ size_t countOfPalindrome(char *s) {
     int countPal = 0;
 
     char *commaPos = find(beginSearch, endS, ',');
-    bool lastComma = false;
+    bool lastComma = *commaPos == '\0' && endS != beginSearch;
     while (*commaPos != '\0' || lastComma) {
         beginSearch = findNonSpace(beginSearch);
 
@@ -58,6 +59,11 @@ void test_countOfPalindrome_hasPalindromes() {
     assert(countOfPalindrome(s) == 6);
 }
 
+void test_countOfPalindrome_oneWord() {
+    char s[] = "radar";
+    assert(countOfPalindrome(s) == 1);
+}
+
 void test_countOfPalindrome_noSpaces() {
     char s[] = "radar,tot,noon,redder,stats,apple,poop";
     assert(countOfPalindrome(s) == 6);
@@ -72,6 +78,7 @@ void test_countOfPalindrome() {
     test_countOfPalindrome_hasPalindromes();
     test_countOfPalindrome_noSpaces();
     test_countOfPalindrome_oneLetter();
+    test_countOfPalindrome_oneWord();
 }
 
 
